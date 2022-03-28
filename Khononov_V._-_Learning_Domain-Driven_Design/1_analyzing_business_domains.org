@@ -1,0 +1,81 @@
+* Analyzing Business Domains
+
+** Strategic Design
+*** There is no sense in talking about the solution before we agree on the problem
+*** Strategic aspect
+**** What? - what software we are building?
+**** Why? - why we are building it?
+*** Tactical part
+**** How? - how each component is implemented?
+
+** What Is a Business Domain?
+*** A business domain defines a company’s main area of activity
+*** Examples
+**** FedEx - courier delivery
+**** Starbucks - coffee
+**** Walmart - retail
+
+** What Is a Subdomain?
+
+*** Fine-grained area of business activity
+
+*** Types of Subdomain
+**** Core
+***** What a company does differently from its competitors
+***** Examples
+****** Uber
+******* Ridesharing
+******* Optimize: reducing costs by matching riders heading in the same direction
+****** Google Search's ranking algorithm
+******* Link to ads platform
+***** Naturally complex
+***** Not necessarily technical
+****** Jewelry maker example
+**** Generic
+***** Business activities that all companies are performing in the same way
+***** Do not provide any competitive edge for the company
+***** Examples
+****** Authentication and authorization
+****** Online shop for jewelry maker
+****** Encryption algorithm
+**** Supporting
+***** Do not provide any competitive advantage
+***** Simple
+***** Examples
+****** ETL operations
+****** CRUD interfaces - validating and convert
+
+*** Comparing Subdomains
+**** Competitive advantage
+***** Only core subdomain
+***** Example: providing the same level of service as competitors do, but at lower costs
+**** Complexity
+***** Supporting - simple
+***** Generic - neither simple nor trivial
+****** “Known unknowns”
+***** Core - complex
+***** Questions
+****** Can be turned into a side business?
+****** Would someone pay for it?
+****** Would it be simpler and cheaper to hack own implementation, rather than integration an external?
+***** FIGURE The business differentiation and business logic complexity of the three types of subdomains
+**** Volatility
+***** Core subdomains can change often
+****** If a problem can be solved on the first attempt, it’s probably not a good competitive advantage
+**** Solution strategy
+***** Core - have to be implemented in-house
+***** Generic - buy a product or adopt an open source solution
+***** Supporting - implementing in-house
+****** There are no ready-made solutions
+**** TABLE The differences between the three types of subdomains
+
+
+** REREAD Identifying Subdomain Boundaries
+*** Distilling subdomains
+**** FIGURE Analyzing the inner workings of a suspectedly generic subdomain
+*** Subdomains as coherent use cases
+**** FIGURE Use case diagram of a credit card payment subdomain
+**** FIGURE Distilling the help desk system subdomain, revealing generic inner components
+**** FIGURE Focus on the essentials
+
+** REREAD Who Are the Domain Experts?
