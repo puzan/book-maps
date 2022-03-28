@@ -1,0 +1,19 @@
+* Preface and Introduction
+
+** What is business logic?
+*** Business logic is all the loops and ‘if-else’ statements you need to implement the requirements
+
+** The vast majority of software projects fail
+*** Software crisis
+*** Miscommunication
+
+** Tools
+*** Strategic
+**** Analyze business domains and strategy
+**** Shared understanding of the business between the different stakeholders
+**** Decomposing systems into components and defining their integration patterns
+*** Tactical
+**** Write code
+***** reflects the business domain
+***** addresses business goals
+***** speaks the language of the business
