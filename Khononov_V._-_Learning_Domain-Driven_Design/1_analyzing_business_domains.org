@@ -69,13 +69,24 @@
 ****** There are no ready-made solutions
 **** TABLE The differences between the three types of subdomains
 
+*** Identifying Subdomain Boundaries
+**** Starting points
+***** Subdomains are “already there”
+***** Company’s departments and other organizational units (Conway's law?)
+**** Distilling subdomains
+***** FIGURE Analyzing the inner workings of a suspectedly generic subdomain
+**** Subdomains as coherent use cases
+***** When to stop?
+***** Subdomains as a set of coherent use cases
+****** FIGURE Use case diagram of a credit card payment subdomain
+***** Distill core subdomain as much as possible to extract all generic and supporting functions
+****** FIGURE Distilling the help desk system subdomain, revealing generic inner components
+***** Whether we need all of them?
+**** Focus on the essentials
+***** Important to identify business functions that are not related to software
+***** Focus on aspects of the business that are relevant to the software system
 
-** REREAD Identifying Subdomain Boundaries
-*** Distilling subdomains
-**** FIGURE Analyzing the inner workings of a suspectedly generic subdomain
-*** Subdomains as coherent use cases
-**** FIGURE Use case diagram of a credit card payment subdomain
-**** FIGURE Distilling the help desk system subdomain, revealing generic inner components
-**** FIGURE Focus on the essentials
-
-** REREAD Who Are the Domain Experts?
+** Who Are the Domain Experts?
+*** Know all the intricacies of the business that we are going to model and implement in code
+*** Represent the business
+*** Systems analysts and engineers are transforming mental models of the business domain into software requirements and source code
