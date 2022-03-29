@@ -1,0 +1,49 @@
+* Discovering Domain Knowledge
+** Knowledge Discovery
+*** Software development is a learning process (Alberto Brandolini)
+*** Requires effective communication
+** Communication
+*** Effective communication is essential for knowledge sharing and project success
+*** Domain knowledge is “translated” into an engineer-friendly form
+**** FIGURE “Traditional“ knowledge sharing flow in a software project
+**** FUGURE Model transformations
+***** Discovery → Design → Implementation
+*** Fails
+**** Implementing the wrong solution
+**** Implementing right solution but to the wrong problems
+** What Is a Ubiquitous Language?
+*** If parties need to communicate efficiently, instead of relying on translations, they have to speak the same language
+** Language of the Business
+*** Ubiquitous language is the language of the business
+*** Consistency
+**** Unclear terminology
+***** Ambiguous terms
+****** Ubiquitous language demands a single meaning for each term
+***** Synonymous terms
+****** It is preferable to use each term explicitly in its specific context
+** Model of the Business Domain
+*** Model
+**** Just enough data to support its particular purpose
+***** Example with maps
+***** FIGURE Different types of maps displaying different models of the earth
+*** Converse with domain experts and do it in the language they understand: the language of the business
+*** Continuous Effort
+**** Cultivation of a ubiquitous language is an ongoing process
+**** Constantly validated and evolved
+*** Tools
+**** Glossary
+**** Shared effort - all team members should update
+**** Capture behavior
+***** use cases
+***** Gherkin tests
+****** Don’t fall into the trap of thinking that domain experts will write Gherkin tests
+***** Static code analysis tools
+****** verify the usage of a ubiquitous language’s terms
+****** NDepend
+*** Challenges
+**** Make sure the correct language is used where it’s easy to control it
+***** Documentation and source code
+***** Don’t update database table names if it is difficult
+**** What language should we use?
+***** Use English nouns for naming the business domain’s entities
+***** This will alleviate using the same terminology in code
