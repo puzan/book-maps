@@ -34,7 +34,7 @@
 **** Glossary
 **** Shared effort - all team members should update
 **** Capture behavior
-***** use cases
+***** Use cases
 ***** Gherkin tests
 ****** Don’t fall into the trap of thinking that domain experts will write Gherkin tests
 ***** Static code analysis tools

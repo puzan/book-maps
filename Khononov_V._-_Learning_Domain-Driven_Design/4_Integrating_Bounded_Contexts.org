@@ -1,0 +1,42 @@
+* Integrating Bounded Contexts
+** Cooperation
+*** Partnership
+**** Notify a second team about a change in the API
+**** Cooperate and adapt
+**** Two-way integration
+**** Requirements
+***** Well-established collaboration practices
+***** High levels of commitment
+***** Frequent synchronizations between teams
+*** Shared Kernel
+**** Overlapping model should be limited
+**** Mono-repository approach
+**** Each change to the shared kernel must trigger integration tests for all the affected bounded contexts
+**** When?
+***** Cost of duplication is higher than the cost of coordination
+****** The difference between the integration and duplication costs depends on the volatility of the model
+****** The more frequently it changes, the higher the integration costs will be
+****** For core subdomains
+***** Communication issues prevent implementing the partnership pattern
+***** Gradual modernization of a legacy system
+***** Owned and implemented by the same team
+** Customer–Supplier
+*** Conformist
+**** Just provides the integration contract, defined according to its own model
+**** Take it or leave it
+*** Anticorruption Layer
+**** Not willing to conform
+**** Examples
+***** Downstream bounded context contains a core subdomain
+***** Upstream model is inefficient or inconvenient for the consumer’s needs
+***** Supplier’s contract changes often
+*** Open-Host Service
+**** Upstream supplier decouples the implementation model from the public interface
+**** Supplier implements the translation of its internal model
+**** Simultaneously expose multiple versions of the published language
+***** Allowing the consumer to migrate to the new version gradually
+** Separate Ways
+*** Not to collaborate at all
+*** Duplicating the functionality would be less expensive than collaborating
+*** The separate ways pattern should be avoided when integrating core subdomains
+** Context Map

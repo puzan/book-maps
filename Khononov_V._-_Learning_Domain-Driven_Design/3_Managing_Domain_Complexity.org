@@ -1,0 +1,38 @@
+* Managing Domain Complexity
+** Inconsistent Models
+*** Catch 22
+**** Each term should have one meaning
+**** Ubiquitous language has to reflect the domain experts’ mental models
+*** Source code doesn’t cope well with ambiguity
+*** Traditional solutions
+**** Single model that can be used for all kinds of problems
+***** FIGURE Enterprise-wide entity relationship diagram
+***** Suitable for everything but eventually are effective for nothing
+**** Prefix the problematic term with a definition of the context
+** What Is a Bounded Context?
+*** Divide the ubiquitous language into multiple smaller languages
+**** FIGURE Tackling inconsistencies in the ubiquitous language by splitting it into bounded contexts
+*** Model Boundaries
+**** Model cannot exist without a boundary
+**** Model will expand to become a copy of the real world
+**** Language’s terminology, principles, and business rules are only consistent inside its bounded context
+*** Ubiquitous Language Refined
+**** Is not universal
+**** Is ubiquitous only in the boundaries of its bounded context
+*** Scope of a Bounded Context
+**** Consistency of the ubiquitous language only helps to identify the widest boundary of that language
+**** We can still further decompose the models into even smaller bounded contexts
+**** Examples
+***** Separate the development lifecycles of some of the components
+***** Ability to scale it independently
+*** Bounded Contexts vs Subdomains
+**** Subdomains - discovered
+**** Bounded Contexts - designed
+**** The division of the domain into bounded contexts is a strategic design decision
+*** Boundaries
+**** Physical Boundaries
+***** Each bounded context should be implemented as an individual service
+***** Logical boundary - bounded context with multiple subdomains
+**** Ownership Boundaries
+***** Bounded context should be owned by only one team
+***** Single team can own multiple bounded contexts
