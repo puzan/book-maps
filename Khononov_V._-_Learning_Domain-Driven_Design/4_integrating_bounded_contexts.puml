@@ -1,3 +1,7 @@
+@startmindmap
+
+!include ../common/map_style.puml
+
 * Integrating Bounded Contexts
 ** Cooperation
 *** Partnership
@@ -20,6 +24,9 @@
 ***** Communication issues prevent implementing the partnership pattern
 ***** Gradual modernization of a legacy system
 ***** Owned and implemented by the same team
+
+left side
+
 ** Customer–Supplier
 *** Conformist
 **** Just provides the integration contract, defined according to its own model
@@ -40,3 +47,4 @@
 *** Duplicating the functionality would be less expensive than collaborating
 *** The separate ways pattern should be avoided when integrating core subdomains
 ** Context Map
+@endmindmap

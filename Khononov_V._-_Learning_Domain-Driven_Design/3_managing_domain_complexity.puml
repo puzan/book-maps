@@ -1,3 +1,7 @@
+@startmindmap
+
+!include ../common/map_style.puml
+
 * Managing Domain Complexity
 ** Inconsistent Models
 *** Catch 22
@@ -9,6 +13,9 @@
 ***** FIGURE Enterprise-wide entity relationship diagram
 ***** Suitable for everything but eventually are effective for nothing
 **** Prefix the problematic term with a definition of the context
+
+left side
+
 ** What Is a Bounded Context?
 *** Divide the ubiquitous language into multiple smaller languages
 **** FIGURE Tackling inconsistencies in the ubiquitous language by splitting it into bounded contexts
@@ -36,3 +43,4 @@
 **** Ownership Boundaries
 ***** Bounded context should be owned by only one team
 ***** Single team can own multiple bounded contexts
+@endmindmap

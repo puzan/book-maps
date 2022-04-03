@@ -1,3 +1,7 @@
+@startmindmap
+
+!include ../common/map_style.puml
+
 * Discovering Domain Knowledge
 ** Knowledge Discovery
 *** Software development is a learning process (Alberto Brandolini)
@@ -13,6 +17,9 @@
 **** Implementing right solution but to the wrong problems
 ** What Is a Ubiquitous Language?
 *** If parties need to communicate efficiently, instead of relying on translations, they have to speak the same language
+
+left side
+
 ** Language of the Business
 *** Ubiquitous language is the language of the business
 *** Consistency
@@ -47,3 +54,4 @@
 **** What language should we use?
 ***** Use English nouns for naming the business domain’s entities
 ***** This will alleviate using the same terminology in code
+@endmindmap

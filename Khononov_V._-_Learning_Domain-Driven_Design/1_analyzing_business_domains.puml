@@ -1,3 +1,7 @@
+@startmindmap
+
+!include ../common/map_style.puml
+
 * Analyzing Business Domains
 
 ** Strategic Design
@@ -15,6 +19,8 @@
 **** Starbucks - coffee
 **** Walmart - retail
 
+left side
+
 ** What Is a Subdomain?
 
 *** Fine-grained area of business activity
@@ -26,7 +32,7 @@
 ****** Uber
 ******* Ridesharing
 ******* Optimize: reducing costs by matching riders heading in the same direction
-****** Google Search's ranking algorithm
+****** Google Search's ranking algorithm
 ******* Link to ads platform
 ***** Naturally complex
 ***** Not necessarily technical
@@ -90,3 +96,4 @@
 *** Know all the intricacies of the business that we are going to model and implement in code
 *** Represent the business
 *** Systems analysts and engineers are transforming mental models of the business domain into software requirements and source code
+@endmindmap

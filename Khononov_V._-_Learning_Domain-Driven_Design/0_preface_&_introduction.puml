@@ -1,3 +1,6 @@
+@startmindmap
+!include ../common/map_style.puml
+
 * Preface and Introduction
 
 ** What is business logic?
@@ -6,6 +9,8 @@
 ** The vast majority of software projects fail
 *** Software crisis
 *** Miscommunication
+
+left side
 
 ** Tools
 *** Strategic
@@ -17,3 +22,4 @@
 ***** reflects the business domain
 ***** addresses business goals
 ***** speaks the language of the business
+@endmindmap
