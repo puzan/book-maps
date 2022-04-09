@@ -1,0 +1,74 @@
+@startmindmap
+<style>
+node {
+    MaximumWidth 250
+    FontSize 20
+    BackgroundColor white
+    LineColor black
+}
+
+rootNode {
+    FontSize 30
+    BackgroundColor lightgreen
+}
+
+:depth(1) {
+    FontSize 25
+    BackgroundColor lightblue
+}
+
+arrow {
+    LineColor black
+}
+</style>
+
+
+* Implementing Simple Business Logic
+
+** Transaction Script
+*** Organizes business logic by procedures where each procedure handles a single request from the presentation (Martin Fowler)
+*** Implementation
+**** System’s public operations are used as encapsulation boundaries.
+**** <&graph> Transaction script interface
+**** Each operation should either succeed or fail but can never result in an invalid state
+*** It’s Not That Easy!
+**** Lack of transactional behavior
+**** Distributed transactions
+**** Implicit distributed transactions
+***** <&graph> Example constitutes a distributed transaction because it communicates information to the databases and the external process that called the method
+***** Make the operation idempotent
+***** Optimistic concurrency control
+*** When to Use Transaction Script
+**** Examples
+***** <&graph> ETL
+***** Supporting or generic subdomains
+***** Adapter for integration with external systems
+***** Part of an anticorruption layer
+**** Simplicity - advantage and disadvantage
+**** Transaction script should never be used for core subdomains
+**** All the business logic implementation patterns in book based on the transaction script pattern
+
+left side
+
+** Active Record
+*** An object that wraps a row in a database table or view, encapsulates the database access, and adds domain logic on that data (Martin Fowler)
+*** Implementation
+**** <&graph> Represent complicated objects
+**** Trees and hierarchies
+**** One-to-many and many-to-many relationships
+**** Transaction script would result in lots of repetitive code
+**** Also implement data access methods for CRUD
+**** ORM, data access frameworks
+**** Instead accessing database directly, manipulates active record objects
+**** Goal - encapsulate the complexity of mapping the in-memory objects to database
+*** When to Use Active Record
+**** Transaction script optimization
+**** Simple business logic
+***** CRUD
+***** Validating
+***** Business-related procedures
+**** Supporting and integration solution fo generic subdomain
+**** Anemic domain model antipattern
+***** There is nothing wrong with using active records when the business logic is simple
+
+@endmindmap
