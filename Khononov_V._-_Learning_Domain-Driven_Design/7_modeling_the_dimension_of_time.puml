@@ -1,0 +1,92 @@
+@startmindmap
+<style>
+node {
+    MaximumWidth 250
+    FontSize 20
+    BackgroundColor white
+    LineColor black
+}
+
+rootNode {
+    FontSize 30
+    BackgroundColor lightgreen
+}
+
+:depth(1) {
+    FontSize 25
+    BackgroundColor lightblue
+}
+
+arrow {
+    LineColor black
+}
+</style>
+
+* Modeling the Dimension of Time
+
+** Event Sourcing
+*** Domain events is source of truth for the aggregate’s data
+**** Tell the customer’s story
+*** Introduces the dimension of time into the data model
+*** In-memory search and analysis with projections
+**** Have to persist the projected models in a database
+*** Event Store
+**** Append-only storage
+***** Should not allow modifying or deleting the events
+**** Operations
+***** Fetch all by business entity
+***** Append the events
+**** Ladger example
+
+** Event-Sourced Domain Model
+*** All changes have to be expressed as domain events
+*** Script
+**** Load aggregate's domain events
+**** Reconstitute a state
+**** Execute business logic and produce new events
+**** Commit events to the event store
+*** Advantages
+**** Time traveling
+***** Analyzing
+***** Debuggin
+**** Deep insight
+***** Transforming the events into different state representations
+**** Audit log
+**** Advanced optimistic concurrency management
+***** Decision based on events
+*** Disadvantages
+**** Learning curve
+***** Team treainings
+***** New way of thinkin
+**** Evolving the model
+***** Events are immutable
+***** How to adjust event's schema?
+***** Greg Young - Versioning in an Event Sourced System
+**** Architectural complexity
+
+left side
+
+** FAQ
+*** Performance
+**** Reconstituting an aggregate’s state
+***** Run benchmarks
+***** Performance hit will be noticeable only after 10,000+ events per aggregate
+***** Average lifespan won’t go over 100 events
+***** Snapshot for 10000+ events
+**** Generates enormous amounts of data. Can it scale?
+***** Shard by aggregate IDs
+*** Deleting Data
+**** GDPR
+***** Encrypt sensitive info in event
+***** Just delete encryption key
+*** Why Can’t I Just...?
+**** write logs to a text file and use it as an audit log
+***** Transaction against two storage mechanisms
+**** keep working with a state-based model, but in the same database transaction, append logs to a logs table
+***** Don't forget to append event
+***** Two sources of trues
+**** keep working with a state-based model but add a database trigger that will take a snapshot of the record and copy it into a dedicated “history” table?
+***** What fields were changed
+***** It misses the business contexts
+
+@endmindmap
