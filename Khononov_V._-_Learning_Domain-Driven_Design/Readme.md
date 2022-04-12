@@ -8,4 +8,4 @@
 ![5](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/puzan/book-maps/raw/main/Khononov_V._-_Learning_Domain-Driven_Design/5_implementing_simple_business_logic.puml)
 ![6](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/puzan/book-maps/raw/main/Khononov_V._-_Learning_Domain-Driven_Design/6_tackling_complex_business_logic.puml)
 ![7](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/puzan/book-maps/raw/main/Khononov_V._-_Learning_Domain-Driven_Design/7_modeling_the_dimension_of_time.puml)
-![8](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/puzan/book-maps/raw/main/Khononov_V._-_Learning_Domain-Driven_Design/8_architectural_patterns.puml.puml)
+![8](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/puzan/book-maps/raw/main/Khononov_V._-_Learning_Domain-Driven_Design/8_architectural_patterns.puml)
