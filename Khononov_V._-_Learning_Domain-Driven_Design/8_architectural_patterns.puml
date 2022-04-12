@@ -1,0 +1,132 @@
+@startmindmap
+<style>
+node {
+    MaximumWidth 250
+    FontSize 20
+    BackgroundColor white
+    LineColor black
+}
+
+rootNode {
+    FontSize 30
+    BackgroundColor lightgreen
+}
+
+:depth(1) {
+    FontSize 25
+    BackgroundColor lightblue
+}
+
+arrow {
+    LineColor black
+}
+</style>
+
+* Architectural Patterns
+
+** Business Logic Versus Architectural Patterns
+*** Ways to orchestrate the interactions and dependencies between a system’s components
+*** How the business logic is wired to the system’s input, output, and other infrastructural components
+*** Business logic to become diffused among the different components: db, ui, etc
+
+** Layered Architecture
+*** Decomposes the codebase based on its technological concerns
+*** Presentation layer
+**** Program’s public interface
+*** Business logic layer
+*** Data access layer
+**** Multiple databases
+**** Object store
+**** Message bus
+*** Communication Between Layers
+**** Each layer can hold a dependency only on the layer directly beneath it
+*** Variation
+**** Service layer
+***** Intermediary between the program’s presentation and business logic layers
+***** Service layer is a logical boundary
+****** It is not a physical service
+***** The presentation layer’s responsibility becomes limited to providing the required input to the service layer and communicating its responses back to the caller
+***** Advantages
+****** Reuse the same service layer to serve multiple public interfaces
+****** Improves modularity by gathering all related methods in one place
+****** Decouples the presentation and business logic layers
+****** Easier to test the business functionality
+***** Is not always necessary
+****** Transaction script - either a service layer or a business logic layer will suffice
+***** Service layer is required if the business logic pattern requires external orchestration
+*** When to Use Layered Architecture
+**** Good fit for a system with its business logic implemented using the transaction script or active record pattern
+**** Challenging to implement a domain model
+***** Business entities should have no dependency and no knowledge of the underlying infrastructure
+
+** Ports & Adapters
+*** Terminology
+**** Infrastructure layer
+***** Presentation layer and data access layer represent integration with external components
+*** Dependency Inversion Principle
+**** Business logic should not depend on low-level modules
+**** Application layer
+***** describes all the operations exposed by the system and orchestrates the system’s business logic for executing them
+*** Integration of Infrastructural Components
+**** Goal - decouple the system’s business logic from its infrastructural components
+**** Business logic layer defines “ports” that have to be implemented by the infrastructure layer.
+**** Infrastructure layer implements “adapters”
+*** Variants
+**** Hexagonal architecture
+**** Onion architecture
+**** Clean architecture
+**** Mistakenly treated as conceptually different - example of the importance of a ubiquitous language
+*** When to Use Ports & Adapters
+**** Perfect fit for business logic implemented with the domain model pattern.
+
+left side
+
+** Command-Query Responsibility Segregation
+*** Polyglot Modeling
+**** Require different representations of the system’s data
+**** Polyglot persistence
+***** Using multiple databases to implement different data-related requirements
+*** CQRS allows the use of multiple storage mechanisms for representing different models of the system’s data
+*** Implementation
+**** Segregates the responsibilities
+**** Command execution model
+***** Implement the business logic, validate rules, and enforce invariants
+***** Representing strongly consistent data—the system’s source of truth
+**** Read models (projections)
+***** Precached projection
+****** durable database
+****** flat file
+****** in-memory cache
+***** Proper implementation of CQRS allows for wiping out all data of a projection and regenerating it from scratch
+***** Extending the system with additional projections in the future
+***** Read models are read-only
+*** Projecting Read Models
+**** Synchronous projections
+***** Script
+****** Queries records after the last processed checkpoint
+****** Regenerate/update the system’s read models
+****** Stores the checkpoint of the last processed record
+***** Checkpoint
+****** can be implemented using the databases’ features (rowversion)
+****** Custom solution - increments a running counter and appends it to each modified record
+**** Asynchronous projections
+***** Subscribe - update
+*** Challenges
+**** Processed out of order or duplicated data
+**** Advisable to always implement synchronous projection and, optionally, an additional asynchronous projection on top of it
+*** Model Segregation
+**** Misconception - command can only modify data, and data can be fetched for display only through a read model
+**** A command should always let the caller know whether it has succeeded or failed
+**** Command can - and in many cases should - return data
+**** Limitation - returned data should originate from the strongly consistent model
+*** When to Use CQRS
+**** Same data in multiple models, potentially stored in different kinds of databases
+**** Continuously improving the model of the business domain
+
+** Scope
+*** Our goal is to drive design decisions according to the actual needs and business strategy
+*** Vertical partitioning
+**** Define logical boundaries for modules encapsulating distinct business subdomains and use the appropriate tools for each
+**** Logical boundaries can be refactored later into physical boundaries of finer-grained bounded contexts
+
+@endmindmap
