@@ -46,83 +46,83 @@ arrow {
 *** Ubiquitous language
 **** Follow the terminology of the bounded context’s ubiqui‐ tous language
 
+** Domain Model - Building Blocks - Value object
+*** Identified by the composition of its values
+**** <&graph> Redundant ColorId example
+*** Ubiquitous language
+**** Relying exclusively on the language’s standard library’s primitive data types (strings, ints, etc)
+***** Primitive obsession code smell
+***** Assigned based on convention
+***** Validation logic tends to be duplicated
+**** Express the business domain’s concepts
+**** Eliminate the need for conventions
+*** Implementation
+**** Immutable objects
+*** When to use value objects
+**** Whenever you can
+**** Describe properties of other objects
+** Domain Model - Building Blocks - Entities
+*** Explicit identification field to distinguish between the different instances of the entity
+*** Id
+**** Unique for each instance of the entity
+**** Remain immutable throughout the entity’s lifecycle
+***** Rare exceptions?
+**** Examples
+***** GUID
+***** Number, String
+***** Domain-specific value such as a Social Security number
+*** Are not immutable and are expected to change
+*** Value objects describe an entity’s properties
+*** We don’t implement entities independently, but only in the context of the aggregate pattern
+
 left side
 
-** Domain Model - Building Blocks
-*** Value object
-**** Identified by the composition of its values
-***** <&graph> Redundant ColorId example
-**** Ubiquitous language
-***** Relying exclusively on the language’s standard library’s primitive data types (strings, ints, etc)
-****** Primitive obsession code smell
-****** Assigned based on convention
-****** Validation logic tends to be duplicated
-***** Express the business domain’s concepts
-***** Eliminate the need for conventions
-**** Implementation
-***** Immutable objects
-**** When to use value objects
-***** Whenever you can
-***** Describe properties of other objects
-*** Entities
-**** Explicit identification field to distinguish between the different instances of the entity
-**** Id
-***** Unique for each instance of the entity
-***** Remain immutable throughout the entity’s lifecycle
-****** Rare exceptions?
-***** Examples
-****** GUID
-****** Number, String
-****** Domain-specific value such as a Social Security number
-**** Are not immutable and are expected to change
-**** Value objects describe an entity’s properties
-**** We don’t implement entities independently, but only in the context of the aggregate pattern
-*** Aggregates
-**** An aggregate is an entity
-**** Protect the consistency of its data
-**** Consistency enforcement
-***** Has to validate all incoming modifications and ensure that the changes do not contradict its business rules
-***** Only aggregates modify state
-***** External are only allowed to read
-***** Commands
-****** State-modifying methods
-****** Public method of the aggregate object
-****** Parameter object
-***** All business logic related to the aggregate is implemented in one place: the aggregate itself
-***** Application layer
-****** Operations implement the transaction script pattern
-****** loads the aggregate’s current state
-****** execute the required action
-****** persist the modified state
-****** return the operation’s result to the caller
-***** Concurrency check
-****** Aggregate should hold a version field that will be incremented after each update
-****** Ensure that the database used for storing an aggregate’s data supports concurrency management
-**** Transaction boundary
-***** Aggregate acts as a transactional boundary
-***** All changes to the aggregate’s state should be committed transactionally as one atomic operation
-***** One aggregate per database transaction
-***** Forces to carefully design an aggregate’s boundaries
-****** Ensuring that the design addresses the business domain’s invariants and rules.
-****** Commit changes in multiple aggregates signals a wrong transaction boundary, and wrong aggregate boundaries
-**** Hierarchy of entities
-***** Support changes to multiple objects with hierarchy of entities
-***** “Aggregate”: it aggregates business entities and value objects that belong to the same transaction boundary.
-**** Referencing other aggregates
-***** All information that can be eventually consistent should reside outside of the aggregate’s boundary
-***** Referenced by its ID
-**** The aggregate root
-***** One of entities should be designated as the aggregate’s public interface
-**** Domain events
-***** Message describing a significant event that has occurred in the business domain
-***** Describe something that has already happened
-***** Provide all the necessary data related to the event
-***** Domain events are part of an aggregate’s public interface
-*** Domain services
-**** business logic that either doesn’t belong to any aggregate or value object, or that seems to be relevant to multiple aggregates
-**** Stateless object that implements the business logic
-**** Keep: modifying only one instance of an aggregate in one database transaction
-**** Domain services lend themselves to implementing calculation logic that requires reading the data of multiple aggregates
+** Domain Model - Building Blocks - Aggregates
+*** An aggregate is an entity
+*** Protect the consistency of its data
+*** Consistency enforcement
+**** Has to validate all incoming modifications and ensure that the changes do not contradict its business rules
+**** Only aggregates modify state
+**** External are only allowed to read
+**** Commands
+***** State-modifying methods
+***** Public method of the aggregate object
+***** Parameter object
+**** All business logic related to the aggregate is implemented in one place: the aggregate itself
+**** Application layer
+***** Operations implement the transaction script pattern
+***** loads the aggregate’s current state
+***** execute the required action
+***** persist the modified state
+***** return the operation’s result to the caller
+**** Concurrency check
+***** Aggregate should hold a version field that will be incremented after each update
+***** Ensure that the database used for storing an aggregate’s data supports concurrency management
+*** Transaction boundary
+**** Aggregate acts as a transactional boundary
+**** All changes to the aggregate’s state should be committed transactionally as one atomic operation
+**** One aggregate per database transaction
+**** Forces to carefully design an aggregate’s boundaries
+***** Ensuring that the design addresses the business domain’s invariants and rules.
+***** Commit changes in multiple aggregates signals a wrong transaction boundary, and wrong aggregate boundaries
+*** Hierarchy of entities
+**** Support changes to multiple objects with hierarchy of entities
+**** “Aggregate”: it aggregates business entities and value objects that belong to the same transaction boundary.
+*** Referencing other aggregates
+**** All information that can be eventually consistent should reside outside of the aggregate’s boundary
+**** Referenced by its ID
+*** The aggregate root
+**** One of entities should be designated as the aggregate’s public interface
+*** Domain events
+**** Message describing a significant event that has occurred in the business domain
+**** Describe something that has already happened
+**** Provide all the necessary data related to the event
+**** Domain events are part of an aggregate’s public interface
+** Domain Model - Building Blocks - Domain services
+*** business logic that either doesn’t belong to any aggregate or value object, or that seems to be relevant to multiple aggregates
+*** Stateless object that implements the business logic
+*** Keep: modifying only one instance of an aggregate in one database transaction
+*** Domain services lend themselves to implementing calculation logic that requires reading the data of multiple aggregates
 
 ** Domain Model - Managing Complexity
 *** Eliyahu M. Goldratt - The Choice
