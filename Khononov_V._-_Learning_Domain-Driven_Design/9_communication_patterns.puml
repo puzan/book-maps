@@ -1,0 +1,107 @@
+@startmindmap
+<style>
+node {
+    MaximumWidth 250
+    FontSize 20
+    BackgroundColor white
+    LineColor black
+}
+
+rootNode {
+    FontSize 30
+    BackgroundColor lightgreen
+}
+
+:depth(1) {
+    FontSize 25
+    BackgroundColor lightblue
+}
+
+arrow {
+    LineColor black
+}
+</style>
+
+* Communication Patterns
+
+** Model Translation
+*** For anticorruption layer and open-host service
+
+*** Stateless Model Translation
+**** Proxy design pattern
+**** Synchronously
+***** Cost-effective and convenient: offload logic to external component
+***** Explicit API gateway can alleviate the process of managing multiple versions of API
+***** Shared anticorruption layer
+****** Consumed by multiple downstream bounded contexts
+***** Interchange contexts
+**** Asynchronous
+***** Message proxy
+***** Reduce the noise on the target bounded context by filtering out irrelevant messages
+***** Differentiating between private events for internal needs and public events for integration with other bounded contexts
+
+*** Stateful Model Translation
+**** Aggregate the source data or unify data from multiple sources into a single model
+**** Aggregating incoming data
+***** Batches for performance optimization
+***** Unifying incoming events
+***** Translation logic requires its own persistent storage
+***** Stream-process platform
+***** Batching solution
+**** Unifying multiple sources
+***** Backend-for-frontend pattern
+
+left side
+
+** Integrating Aggregates
+*** How are domain events published to a message bus?
+*** Common mistakes
+**** Publish inside aggregate
+***** Event will be dispatched before the aggregate’s new state is committed to the database
+***** How to handle transaction fail?
+**** Publish in application layer
+***** Message bus is down - domain events will never be published
+
+*** Outbox
+**** Algorithm
+***** Aggregate’s state and the new domain events are committed in the same atomic transaction
+***** Message relay fetches newly committed domain events from the database
+***** Relay publishes the domain events to the message bus
+***** Marks the events as published in the database or deletes them completely.
+**** Relational database
+***** Commit to two tables atomically and use a dedicated table for storing the messages
+***** NoSQL - embedded in the aggregate’s record
+**** Fetching unpublished events
+***** Pull: polling publisher
+***** Push: transaction log tailing
+**** At least once delivery
+
+*** Saga
+**** Aggregate design principles is to limit each transaction to a single instance of an aggregate
+**** How to implement a business process that spans multiple aggregates?
+**** What is saga?
+***** Long-running business process
+****** Business process that spans multiple transactions
+***** Transactions can be handled not only by aggregates but by any component emitting domain events and responding to commands
+***** Saga listens to the events emitted by the relevant components and issues subsequent commands to the other components
+***** Fail: saga is in charge of issuing relevant compensating actions to ensure the system state remains consistent
+**** State management
+***** Implemented as an event-sourced aggregate
+***** Persisting the complete history of received events and issued commands
+***** Command execution logic should be moved out of the saga itself and executed asynchronously (like outbox)
+****** Ensures that the commands will be executed reliably
+**** Consistency
+***** States of the involved components are eventually consistent
+***** Everything outside aggregate's boundary is eventually consistent
+**** Saga pattern manages simple, linear flow
+***** Matches events to the corresponding commands
+***** Instantiated implicitly when a particular event is observed
+
+*** Process Manager
+**** Business-logic-based process
+**** Central processing unit that maintains the state of the sequence and determines the next processing steps
+**** Rule: if a saga contains if-else statements to choose the correct course of action, it is probably a process manager
+**** Coherent business process consisting of multiple steps
+**** Process manager has to be instantiated explicitly
+**** Implemented as aggregates, either state based or event sourced
+@endmindmap
