@@ -1,0 +1,85 @@
+@startmindmap
+<style>
+node {
+    MaximumWidth 250
+    FontSize 20
+    BackgroundColor white
+    LineColor black
+}
+
+rootNode {
+    FontSize 30
+    BackgroundColor lightgreen
+}
+
+:depth(1) {
+    FontSize 25
+    BackgroundColor lightblue
+}
+
+arrow {
+    LineColor black
+}
+</style>
+
+* Design Heuristics
+
+** Heuristic
+*** "It depends" is not practical
+*** Rule of thumb
+**** Not guaranteed to be perfect, yet sufficient for one’s immediate goals
+**** Focusing on the “swamping forces”
+**** not hard rules
+** Bounded Contexts
+*** What is the optimal size of a bounded context?
+**** There are many useful and revealing heuristics for defining the boundaries of a service. Size is one of the least useful.
+**** Software changes affecting multiple bounded contexts are expensive and require lots of coordination
+***** Signal ineffective design of the contexts’ boundaries
+*** When designing bounded contexts, start with wider boundaries
+**** Protect yourself against unforeseen changes by including other subdomains that the core subdomain interacts with most often
+
+** Business Logic Implementation Patterns
+*** Decision tree
+**** Subdomain type
+***** Supporting subdomain/integrating generic subdomain
+****** Complex data structure
+******* Active record
+****** Simple data structure
+******* Transactional script
+***** Core subdomain
+****** Monetary transactions, analysis, audit log
+******* Event-sourced domain model
+****** Else
+******* Domain model
+*** Define the difference between complex and simple business logic
+**** Complex business logic includes complicated business rules, invariants, and algorithms
+**** Simple approach - validating the inputs
+**** Complexity of the ubiquitous language
+***** Describing CRUD operations or complicated business processes and rules?
+*** Core subdomain’s competitive advantage is not necessarily technical
+
+left side
+
+** Architectural Patterns
+*** Architectural pattern decision tree
+**** Multiple persistent models -> CQRS
+**** Event-sourced domain model -> CQRS
+**** Domain model -> Ports & Adapters
+**** Active record -> 4 layered architecture
+**** Transactional script -> 3 layered architecture
+
+** Testing Strategy
+*** Testing Pyramid
+**** Both variants of the domain model patterns
+**** Aggregates and value objects make perfect units for effectively testing the business logic.
+*** Testing Diamond
+**** Active record
+**** Business logic is, by definition, spread across both the service and business logic layers
+**** Focus on integrating the two layers
+*** Reversed Testing Pyramid
+**** Transaction script
+**** Verifying the application’s workflow from beginning to end
+**** The business logic is simple and the number of layers is minimal, making it more effective to verify the end-to-end flow of the system.
+
+** Tactical Design Decision Tree
+@endmindmap
