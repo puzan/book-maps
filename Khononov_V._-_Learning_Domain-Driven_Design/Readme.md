@@ -11,3 +11,4 @@
 ![8](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/puzan/book-maps/raw/main/Khononov_V._-_Learning_Domain-Driven_Design/8_architectural_patterns.puml)
 ![9](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/puzan/book-maps/raw/main/Khononov_V._-_Learning_Domain-Driven_Design/9_communication_patterns.puml)
 ![10](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/puzan/book-maps/raw/main/Khononov_V._-_Learning_Domain-Driven_Design/10_design_heuristics.puml)
+![11](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/puzan/book-maps/raw/main/Khononov_V._-_Learning_Domain-Driven_Design/11_evolving_design_decisions.puml)

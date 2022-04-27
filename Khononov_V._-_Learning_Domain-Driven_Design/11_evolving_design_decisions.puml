@@ -1,0 +1,119 @@
+@startmindmap
+<style>
+node {
+    MaximumWidth 250
+    FontSize 20
+    BackgroundColor white
+    LineColor black
+}
+
+rootNode {
+    FontSize 30
+    BackgroundColor lightgreen
+}
+
+:depth(1) {
+    FontSize 25
+    BackgroundColor lightblue
+}
+
+arrow {
+    LineColor black
+}
+</style>
+
+* Evolving Design Decisions
+** To keep up with the competition, have to continually change, evolve, and even reinvent over time
+
+** Changes in Domains
+*** Core to Generic
+**** Path optimization example
+*** Generic to Core
+**** Amazon
+*** Supporting to Generic
+**** CRUD to open source solution
+***** managing the vendors it works with and their contracts
+*** Supporting to Core
+**** Optimize the supporting logic in such a way that it either reduces costs or generates additional profits
+*** Core to Supporting
+**** It’s not profitable
+**** Leaving the minimum logic
+*** Generic to Supporting
+**** Resorted back to the in-house system
+
+** Strategic Design Concerns
+*** Core
+**** Protect their models by using anticorruption layers
+**** Protect consumers from frequent changes in the implementation models by using published languages (OHS)
+*** Separate ways pattern for supporting and generic
+**** Morphs into a core subdomain, duplicating its functionality by multiple teams is no longer acceptable
+*** Outsource vs in-house
+
+** Tactical Design Concerns
+*** Intro
+**** Main indicator of a change in a subdomain’s type is the inability of the existing technical design to support current business needs
+**** Codebase will become increasingly complex
+**** Nothing to fear. Change is normal.
+**** If the decision for how to model the business logic is made consciously, ьigrating from one design pattern to another is not that troublesome
+*** Transaction Script to Active Record
+**** Both procedural script
+**** Working with data becomes challenging
+*** Active Record to Domain Model
+**** Active records becomes complex
+***** More cases of inconsistencies and duplications
+**** Step-by-step
+***** Identifying value objects
+***** Look for transactional boundaries
+***** Make all of the active records’ setters private
+***** What hierarchies are needed to ensure strongly consistent checking of business rules and invariants
+***** Look for the smallest transaction boundaries, the smallest amount of data that you need to keep strongly consistent
+***** External aggregates are only referenced by their IDs
+***** Identify its root, public interface
+*** Domain Model to Event-Sourced Domain Model
+**** Domain events needed to represent the aggregate’s lifecycle
+**** Migrating the “timeless” state into the event-based model
+***** Generating Past Transitions
+****** It’s impossible to recover the complete history of state transitions
+***** Modeling Migration Events
+****** Define a migration event and use it to initialize the event streams of existing aggregate instances
+****** Traces of the legacy system will remain in the event store forever
+
+left side
+
+** Organizational Changes
+*** Bounded context can be implemented by only one team
+*** Split current Bounded context into smaller ones
+*** Scenarios
+**** Partnership to Customer–Supplier
+**** Customer–Supplier to Separate Ways
+
+** Domain Knowledge
+*** Core tenet - domain knowledge
+*** Design the bounded contexts’ boundaries according to the level of domain knowledge
+*** Effective tool for recovering domain knowledge is the EventStorming workshop
+
+** Growth
+*** Intro
+**** The only constant in life is change
+**** Growth is a sign of a healthy system
+**** Big balls of mud - results from extending a software system’s functionality without re-evaluating its design decisions
+**** Many domain-driven design tools are all about setting boundaries
+***** business building blocks (subdomains)
+***** model (bounded contexts)
+***** immutability (value objects)
+***** consistency (aggregates)
+**** Identify and eliminate accidental complexity
+***** complexity caused by outdated design decisions
+*** Subdomains
+**** Instead of striving for boundaries that are perfect, we must strive for boundaries that are useful
+**** Follow the heuristic of coherent use cases
+***** Sets of use cases working on the same set of data
+**** Identify more finer-grained subdomain boundaries that will enable you to make better design decisions
+*** Bounded Contexts
+**** Always look for opportunities to simplify the models by extracting bounded contexts that are laser focused at solving specific problems
+**** Make sure the models encompassed by bounded contexts are focused to solve specific problems
+*** Aggregates
+**** If an aggregate grows to include data that is not needed to be strongly consistent by all of its business logic, again, that’s accidental complexity that has to be eliminated
+**** Make sure your aggregates’ boundaries are as small as possible
+
+@endmindmap
