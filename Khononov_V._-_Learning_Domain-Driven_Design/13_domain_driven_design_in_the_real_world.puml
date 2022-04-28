@@ -1,0 +1,144 @@
+@startmindmap
+<style>
+node {
+    MaximumWidth 250
+    FontSize 20
+    BackgroundColor white
+    LineColor black
+}
+
+rootNode {
+    FontSize 30
+    BackgroundColor lightgreen
+}
+
+:depth(1) {
+    FontSize 25
+    BackgroundColor lightblue
+}
+
+arrow {
+    LineColor black
+}
+</style>
+
+* Domain-Driven Design in the Real World
+
+** Intro
+*** Projects that can benefit from DDD the most are the brownfield projects
+**** already proved their business viability and need a shake-up to fight accumulated technical debt and design entropy
+*** All-or-nothing mistake
+
+** Strategic Analysis
+*** Understand the Business Domain
+**** Bird’s-eye view - Identify the company’s business domain
+***** What is the organization’s business domain(s)?
+***** Who are its customers?
+***** What service, or value, does the organization provide to customers?
+***** What companies or products is the organization competing with?
+**** zoom in -> subdomains
+***** Initial heuristic - departments and other organi‐ zational units
+**** Signs of specific types of subdomains
+***** Core subdomains
+****** Differentiates it from its competitors
+******* Secret sauce
+******* Nontechnical competitive
+****** Worst-designed software components
+******* All engineers hate but the business is unwilling to rewrite from scratch because of the accompanying business risk
+***** Generic subdomains
+****** Look for off-the-shelf solutions, subscription services, or integration of open source software
+***** Supporting subdomains
+****** Cannot be replaced with ready-made solutions yet do not directly provide a competitive advantage
+****** Changes infrequently
+*** Explore the Current Design
+**** Look ant boundaries used to decompose the business domain into subsystems
+**** Which can be evolved, tested, and deployed independently from the others
+
+**** Evaluate the tactical design
+***** Which business subdomains it contains and what technical design decisions were taken
+***** Does the solution fit the complexity of the problem?
+**** Evaluate the strategic design
+***** Chart the current design’s context map
+***** Identify and track the relationships between the components
+***** Evaluate the architecture from a domain-driven design perspective
+****** Multiple teams working on the same high-level component
+****** Duplicate implementations of core subdomains
+****** Implementation of a core subdomain by an outsourced company
+****** The EventStorming session as the foundation for cultivating a ubiquitous language.
+
+left side
+
+** Modernization Strategy
+*** Intro
+**** Big rewrite is rarely successful
+***** Even more rarely does management support such architectural makeovers
+**** Think big but start small
+**** Not all of a large system will be well designed (Eric Evans)
+**** Decide where to invest in terms of modernization efforts
+**** Prerequisite for making this decision is to have boundaries dividing the system’s subdomains
+**** Ensuring that at least the logical boundaries (namespace, modules, and packages, depending on the technology stack) are aligned with the subdomains’ boundaries
+**** Adjusting the system’s modules is a relatively safe form of refactoring
+***** Move to well-organized structure
+*** Strategic Modernization
+**** Risky to prematurely decompose the system into the smallest bounded contexts possible
+**** Look for where the most value can be gained by turning the logical boundaries into physical boundaries
+***** Are multiple teams working on the same codebase?
+***** Are conflicting models being used by the different components?
+*** Tactical Modernization
+**** look for the most “painful” mismatches in business value and implementation strategies, such as core subdomains implementing patterns that don’t match the complexity of the model
+*** Cultivate a Ubiquitous Language
+**** Use EventStorming to build a ubiquitous language
+**** Modernization strategy
+***** Strangler pattern
+****** Plan
+******* Create a new bounded context
+******* Implement new requirements
+******* Gradually migrate the legacy context’s functionality into it
+****** Strangler pattern is used in tandem with the façade pattern
+****** Contrary to the principle that each bounded context is a separate subsystem, and thus cannot share its database with other bounded contexts, the rule can be relaxed when implementing the strangler pattern
+***** Refactoring tactical design decisions
+****** Small incremental steps are safer than a big rewrite
+******* Don’t refactor a transaction script or active record straight to an event-sourced domain model
+****** Active records to aggregates
+******* Start by gathering the related business logic
+******* Analyze the transactional boundaries
+***** Decisions are driven by business, not technology, concerns
+***** Protect
+****** New codebase from old models using an anticorruption layer
+****** Consumers from changes in the legacy codebase by implementing an open-host service and exposing a published language
+
+** Pragmatic Domain-Driven Design
+*** Look for effective mod‐ els to solve particular problems
+*** Make design decisions based on the business domain’s needs: that’s domain-driven design!
+*** Domain-driven design is about letting your business domain drive software design decisions.
+
+** Selling Domain-Driven Design
+*** Undercover Domain-Driven Design
+**** Make domain-driven design a part of your professional toolbox
+**** Engineering techniques
+*** incorporate DDD into your day-to-day job
+**** Ubiquitous language
+***** Listen carefully to the language the stakeholders
+***** Steer the terminology away
+***** Look for inconsistent terms and ask for clarifications
+***** Communicate with domain experts as much as possible
+***** Try using their language
+***** Use the ubiquitous language in your code and all project-related communication
+***** Be patient
+**** Bounded contexts
+***** Resolve to the principles behind what the bounded context pattern is based on
+****** Why is it better to design problem-oriented models instead of a single model for all use cases?
+******* Because “all-in-one” solutions are rarely effective for anything.
+****** Why can’t a bounded context host conflicting models?
+******* Because of the increased cognitive load and solution complexity.
+****** Why is it a bad idea for multiple teams to work on the same codebase?
+******* Because of friction and hindered collaboration between the teams.
+**** Tactical design decisions
+***** When discussing tactical design patterns, don’t appeal to authority
+***** Instead, appeal to logic
+**** Event-sourced domain model
+***** Too radical for many people
+***** Show them the state- and event-based models
+***** Dimension of time
+
+@endmindmap

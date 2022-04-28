@@ -13,3 +13,4 @@
 ![10](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/puzan/book-maps/raw/main/Khononov_V._-_Learning_Domain-Driven_Design/10_design_heuristics.puml)
 ![11](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/puzan/book-maps/raw/main/Khononov_V._-_Learning_Domain-Driven_Design/11_evolving_design_decisions.puml)
 ![12](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/puzan/book-maps/raw/main/Khononov_V._-_Learning_Domain-Driven_Design/12_eventstorming.puml)
+![13](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/puzan/book-maps/raw/main/Khononov_V._-_Learning_Domain-Driven_Design/13_domain_driven_design_in_the_real_world.puml)
