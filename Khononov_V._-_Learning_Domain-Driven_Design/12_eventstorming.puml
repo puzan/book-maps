@@ -1,0 +1,130 @@
+@startmindmap
+<style>
+node {
+    MaximumWidth 250
+    FontSize 20
+    BackgroundColor white
+    LineColor black
+}
+
+rootNode {
+    FontSize 30
+    BackgroundColor lightgreen
+}
+
+:depth(1) {
+    FontSize 25
+    BackgroundColor lightblue
+}
+
+arrow {
+    LineColor black
+}
+</style>
+
+* EventStorming
+
+** What Is EventStorming?
+*** Low-tech activity for a group of people to brainstorm and rapidly model a business process
+*** Exploring the process as a series of domain events, represented by sticky notes, over a timeline
+*** Until all of its elements tell the story of how the business process works
+
+** Who Should Participate in EventStorming?
+*** Goal: to learn as much as possible in the shortest time possible
+*** We invite key people to the workshop, and we don’t want to waste their valuable time.
+*** Diverse group of people should participate in the workshop
+*** Take care not to make the group too big
+**** Every participant should be able to contribute to the process
+
+** What Do You Need for EventStorming?
+*** Modeling space
+*** Sticky notes
+*** Markers
+**** Supplies shouldn’t be a bottleneck for knowledge sharing
+*** Snacks
+**** Energy replenishment
+*** Room
+**** Chairs are a big no-no for EventStorming sessions
+
+** The EventStorming Process
+*** Step 1: Unstructured Exploration
+**** Brainstorm of the domain events
+**** Formulate domain events in the past tense
+**** There is no need to worry about ordering events
+**** Until the rate of adding new ones slows significantly
+*** Step 2: Timelines
+**** Organize them in the order in which they occur in the business domain
+**** Happy path scenario first
+**** Fix incorrect events, remove duplicates, add missing events if necessary
+*** Step 3: Pain Points
+**** Identify points in the process that require attention
+***** bottlenecks
+***** manual steps that require automation
+***** missing documentation
+***** missing domain knowledge
+*** Step 4: Pivotal Events
+**** Look for significant business events indicating a change in context or phase
+**** Pivotal events are an indicator of potential bounded context boundaries
+*** Step 5: Commands
+**** Command describes what triggered the event or flow of events
+**** Formulated in the imperative
+**** Placed on the modeling space before the events they can produce
+**** Actor information is added to the command
+*** Step 6: Policies
+**** Look for automation policies that might execute those commands
+**** Automation policy is a scenario in which an event triggers the execution of a command
+**** Purple sticky notes connecting events to commands
+**** Specify the decision criteria explicitly on the policy sticky note
+*** Step 7: Read Models
+**** A read model is the view of data within the domain that the actor uses to make a decision to execute a command
+**** Read models are positioned before the commands
+*** Step 8: External Systems
+**** External system is defined as any system that is not a part of the domain being explored
+**** Can execute commands (input) or can be notified about events (output)
+**** By the end of this step, all commands should either be executed by actors, triggered by policies, or called by external systems
+*** Step 9: Aggregates
+**** An aggregate receives commands and produces events
+*** Step 10: Bounded Contexts
+**** Look for aggregates that are related to each other, either because they represent closely related functionality or because they’re coupled through policies
+
+left side
+
+** Variants
+*** Guidance, not hard rules
+*** Exploring the big picture
+**** Steps 1 (chaotic exploration) through 4 (pivotal events)
+**** Builds a strong foundation for ubiquitous languages
+**** Then facilitate a dedicated EventStorming session for each relevant business process
+*** The real value is the process itself
+**** sharing of knowledge among different stakeholders
+**** alignment of their mental models of the business
+**** discovery of conflicting models
+**** formulation of the ubiquitous language
+
+** When to Use EventStorming
+*** Reasons
+**** Build a ubiquitous language
+**** Model the business process
+**** Explore new business requirements
+**** Recover domain knowledge
+**** Explore ways to improve an existing business process
+**** Onboard new team members
+*** Less successful when the business process you’re exploring is simple or obvious, such as following a series of sequential steps without any interesting business logic or complexity
+
+** Facilitation Tips
+*** Intro
+**** Start with a quick overview of the process
+**** Prepare legend
+*** Watch the Dynamics
+**** Important to track the energy of the group
+**** EventStorming is a group activity
+**** Everyone has a chance to participate
+
+** Remote EventStorming
+*** Miro
+*** Remote EventStorming sessions are more effective with a smaller number of participants
+*** Limit online sessions to five participants
+*** When you need more participants - facilitate multiple sessions, and afterward compare and merge the resultant models
+*** When the situation allows, return to in-person EventStorming
+
+@endmindmap
