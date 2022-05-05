@@ -1,0 +1,89 @@
+@startmindmap
+<style>
+node {
+    MaximumWidth 250
+    FontSize 20
+    BackgroundColor white
+    LineColor black
+}
+
+rootNode {
+    FontSize 30
+    BackgroundColor lightgreen
+}
+
+:depth(1) {
+    FontSize 25
+    BackgroundColor lightblue
+}
+
+arrow {
+    LineColor black
+}
+</style>
+
+* Microservices
+** Intro
+*** Associated with the bounded context pattern
+** What Is a Service?
+*** Service is a mechanism that enables access to one or more capabilities, where the access is provided using a prescribed interface
+*** Randy Shoup likens a service’s interface to a front door
+** What Is a Microservice?
+*** Intro
+**** Microservice is a service with a micro-public interface: a micro-front door.
+**** Reducing a service’s functionality also limits its reasons for change and makes the service more autonomous for development, management, and scale.
+*** Method as a Service: Perfect Microservices?
+**** Distributed big ball of mud
+*** Design Goal
+**** The goal of the microservices architecture is to produce a flexible system
+*** System Complexity
+**** Local and global complexity
+***** Local complexity depends on the implementation of a service
+***** Global complexity is defined by the interactions and dependencies between the services
+**** Reduce global complexity to a minimum
+***** Eliminate any interactions between the system’s components
+***** Monolithic service
+**** Optimize both global and local complexities
+*** Microservices as Deep Services
+**** A function is what the module is supposed to do—its business functionality.
+**** The logic is the module’s business logic—how the module implements its business functionality.
+**** Effective modules are deep
+**** Simple public interface encapsulates complex logic
+*** Microservices as Deep Modules
+**** Modules can denote both logical and physical boundaries
+**** Microservices are strictly physical
+**** Deep module reduces the system’s global complexity, while a shallow module increases
+
+left side
+
+** Domain-Driven Design and Microservices’ Boundaries
+*** Bounded Contexts
+**** Both microservices and bounded contexts are physical boundaries
+**** Owned by a single team
+**** The different decompositions to bounded contexts attribute different requirements, such as different teams’ sizes and structures, lifecycle dependencies, and so on
+**** Microservices are bounded contexts, not every bounded context is a microservice
+**** Bounded contexts denote the boundaries of the largest valid monolith
+*** Aggregates
+**** The aggregate’s boundary is the narrowest boundary possible
+**** Questions
+***** Does it share value objects with other aggregates?
+***** How likely will the aggregate’s business logic changes affect other components of the subdomain and vice versa?
+*** Subdomains
+**** Align the services with the boundaries of business subdomains
+**** Subdomains represent sets of coherent use cases
+**** Safe boundary for designing microservices
+** Compressing Microservices’ Public Interfaces
+*** Domain-driven design can help make services deeper
+*** Open-Host Service
+**** Integration-oriented model, the published language, reduces the system’s global complexity
+**** Evolve the service’s implementation without impacting its consumers
+**** Published language exposes a more restrained model
+**** Expose less data and in a more convenient model for consumers
+*** Anticorruption Layer
+**** Standalone service
+**** ACL service reduces both the local complexity of the consuming bounded context and the system’s global complexity
+** Conclusion
+*** Microservice defines the smallest valid boundary of a service
+*** Bounded context protects the consistency of the encompassed model and represents the widest valid boundaries
+
+@endmindmap
