@@ -1,0 +1,104 @@
+@startmindmap
+<style>
+node {
+    MaximumWidth 250
+    FontSize 20
+    BackgroundColor white
+    LineColor black
+}
+
+rootNode {
+    FontSize 30
+    BackgroundColor lightgreen
+}
+
+:depth(1) {
+    FontSize 25
+    BackgroundColor lightblue
+}
+
+arrow {
+    LineColor black
+}
+</style>
+
+* Event-Driven Architecture
+** Intro
+*** Designing loosely coupled, scalable, fault-tolerant distributed systems
+
+** Event-Driven Architecture
+*** System’s components communicate with one another asynchronously by exchanging event messages
+*** A typical example of an event-driven execution flow is the saga pattern
+*** Event sourcing is a method for capturing changes in state as a series of events
+*** EDA refers to the communication between services, while event sourcing happens inside a service
+*** The events designed for event sourcing represent state transitions
+
+** Events
+*** Events, Commands, and Messages
+**** Command can be rejected
+**** Overturn an event - issue a compensating action
+*** Types of Events
+**** Event notification
+***** Goal is to notify the interested parties about the event
+***** Notification shouldn’t carry all the information needed for the subscribers to react to the event
+***** Preferable scenatios
+****** Security
+******* Prevents sharing sensitive information over the messaging infrastructure
+******* Requires additional authorization
+****** Concurrency
+******* Can already be rendered stale when it reaches the subscribers
+******* Querying it explicitly allows getting the up-to-date state
+**** Event-carried state transfer
+***** ECST messages include all the data reflecting the change in the state
+***** Forms
+****** Complete snapshot of the modified entity’s state
+****** Include in the ECST message only the fields that were actually modified
+***** Allows consumers to hold a local cache
+***** Asynchronous data replication mechanism
+**** Domain event
+***** Somewhere between event notification and ECST messages
+***** Describe a significant event in the business domain, and they contain all the data describing the event
+***** Domain events vs event notification
+****** Domain events include all the information describing the event
+****** Event notifications are designed with the intent to alleviate integration with other components
+****** Domain events, on the other hand, are intended to model and describe the business domain
+***** Domain events vs event-carried state transfer
+****** An ECST message provides sufficient information to hold a local cache of the producer’s data
+****** No single domain event is supposed to expose such a rich model
+****** Domain event describes a business event that happened during its lifecycle
+
+left side
+
+** Designing Event-Driven Integration
+*** How to use events to design a strongly coupled, distributed big ball of mud
+*** Distributed Big Ball of Mud
+*** Temporal Coupling
+**** Depend on a strict order of execution
+*** Functional Coupling
+**** Multiple components implementing the same business functionality, and if it changes, both components have to change simultaneously
+*** Implementation Coupling
+**** Adding a new domain event or changing the schema of an existing one, has to be reflected in both subscribing bounded contexts
+*** Refactoring the Event-Driven Integration
+**** Project the model needed by the consumers and make it a part of the bounded context’s published language
+**** Publish an additional event notification
+*** Event-Driven Design Heuristics
+**** Assume the worst
+***** Guiding principles
+****** The network is going to be slow
+****** Servers will fail at the most inconvenient moment
+****** Events will arrive out of order
+****** Events will be duplicated
+***** Solution
+****** Use the outbox pattern to publish messages reliably
+****** Ensure that the subscribers will be able to deduplicate the messages and identify and reorder out-of-order messages
+****** Leverage the saga and process manager patterns when orchestrating cross-bounded context processes that require issuing compensating actions
+**** Use public and private events
+***** Leverage the different types of events
+***** Event notification messages can be used to further minimize the public interface
+***** Sparingly use domain events for communication
+***** Consider designing a set of dedicated public domain events
+**** Evaluate consistency requirements
+***** If the components can settle for eventually consistent data, use the event-carried state transfer message.
+***** If the consumer needs to read the last write in the producer’s state, issue an event notification message, with a subsequent query to fetch the producer’s up-to-date state.
+
+@endmindmap
