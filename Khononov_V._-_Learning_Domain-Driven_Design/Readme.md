@@ -16,3 +16,4 @@
 ![13](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/puzan/book-maps/raw/main/Khononov_V._-_Learning_Domain-Driven_Design/13_domain_driven_design_in_the_real_world.puml)
 ![14](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/puzan/book-maps/raw/main/Khononov_V._-_Learning_Domain-Driven_Design/14_microservices.puml)
 ![15](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/puzan/book-maps/raw/main/Khononov_V._-_Learning_Domain-Driven_Design/15_event_driven_architecture.puml)
+![16](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/puzan/book-maps/raw/main/Khononov_V._-_Learning_Domain-Driven_Design/16_data_mesh.puml)

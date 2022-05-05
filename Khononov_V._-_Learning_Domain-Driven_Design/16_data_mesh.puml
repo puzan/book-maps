@@ -1,0 +1,95 @@
+@startmindmap
+<style>
+node {
+    MaximumWidth 250
+    FontSize 20
+    BackgroundColor white
+    LineColor black
+}
+
+rootNode {
+    FontSize 30
+    BackgroundColor lightgreen
+}
+
+:depth(1) {
+    FontSize 25
+    BackgroundColor lightblue
+}
+
+arrow {
+    LineColor black
+}
+</style>
+
+* Data Mesh
+** Analytical Data Model Versus Transactional Data Model
+*** Fact Table
+**** Facts represent business activities that have already happened
+**** Fact records are never deleted or modified
+**** Aggregated data is more efficient in many use cases
+*** Dimension Table
+**** If a fact represents a business process or action (a verb), a dimension describes the fact (an adjective).
+**** The querying patterns of the analytical models are not predictable
+*** Analytical Models
+**** Star and snowflake schema
+
+** Analytical Data Management Platforms
+*** Data Warehouse
+**** ETL
+**** Various sources
+***** operational databases
+***** streaming events
+***** logs
+**** Additional operations
+***** removing sensitive data
+***** deduplicating records
+***** reordering events
+***** aggregating fine-grained events
+**** Staging area
+***** Temporary storage for the incoming data
+**** Heart of the data warehouse architecture is the goal of building an enterprise-wide model
+**** Designing a model for the task at hand, such as building reports or training ML models, is a much more effective and scalable approach
+**** A data mart is a database that holds data relevant for well-defined analytical needs, such as analysis of a single business department
+**** Strong coupling between the analytical (OLAP) and the operational (OLTP) systems
+*** Data Lake
+**** Ingesting the operational systems’ data and transforming it into an analytical model
+**** The data is persisted in its raw form, that is, in the original operational model
+**** ETL scripts that will generate analytical models and feed them into a data warehouse
+**** Multiple, task-oriented analytical models
+**** Data lakes are schema-less
+**** chaotic at certain levels of scale
+*** Challenges of Data Warehouse and Data Lake Architectures
+**** More data that is ingested for analytics, the more insight the organization will gain
+**** The transformation of operational to analytical models converges to thousands of unmaintainable, ad hoc ETL scripts at scale.
+**** Create dependencies on their implementation details
+**** Data analysts and data engineers belong to a separate organizational unit, they often lack the deep knowledge of the business domain possessed by the operational systems’ development teams
+**** Change in the operational model can have unforeseen consequences in the analytical model
+
+left side
+
+** Data Mesh
+*** Intro
+**** Data mesh architecture defines and protects model and ownership boundaries for analytical data
+*** Decompose Data Around Domains
+**** Use multiple analytical models and align them with the origin of the data
+**** Generation of the analysis data becomes the responsibility of the corresponding product teams
+*** Data as a Product
+**** Treating the analytical data as a first-class citizen
+**** Analytical data should be treated the same as any public API
+**** Data quality is a top-level concern
+**** Data products have to be polyglot, serving the data in formats that suit different consumers’ needs
+**** Product teams require adding data-oriented specialists
+*** Enable Autonomy
+**** The product teams should be able to both create their own data products and consume data products served by other bounded contexts.
+**** Platform is needed to abstract the complexity of building, executing, and maintaining interoperable data products
+*** Build an Ecosystem
+**** Federated governance body to enable interoperability and ecosystem thinking in the domain of the analytical data
+**** The governance group is in charge of defining the rules to ensure a healthy and interoperable ecosystem
+*** Combining Data Mesh and Domain-Driven Design
+**** Ubiquitous language and the resultant domain knowledge are essential for designing analytical models
+**** Exposing a bounded context’s data in a model that is different from its operational model is the open-host pattern
+**** CQRS pattern
+***** Transform the operational model into an analytical model
+
+@endmindmap
