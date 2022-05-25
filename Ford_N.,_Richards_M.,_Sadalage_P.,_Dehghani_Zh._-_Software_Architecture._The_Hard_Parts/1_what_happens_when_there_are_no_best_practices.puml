@@ -1,0 +1,123 @@
+@startmindmap
+<style>
+node {
+    MaximumWidth 250
+    FontSize 20
+    BackgroundColor white
+    LineColor black
+}
+
+rootNode {
+    FontSize 30
+    BackgroundColor lightgreen
+}
+
+:depth(1) {
+    FontSize 25
+    BackgroundColor lightblue
+}
+
+arrow {
+    LineColor black
+}
+</style>
+
+* What Happens When There Are No “Best Practices”?
+
+** Intro - Why this book
+*** Technologists write books when they have figured out a novel solution to a general problem and want to broadcast it
+*** Real job of an architect
+**** Ability to determine and assess the set of trade-offs on either side of a consequential decision to resolve it as well as possible
+**** Don’t try to find the best design in software architecture
+***** Strive for the least worst combination of trade-offs
+*** Book about decision making, enabling architects to make better decisions
+
+** Why “The Hard Parts”?
+*** difficult
+**** no one has faced before
+*** solidity
+**** Like hardware and software
+***** Architecture and design
+**** Hard should change much less
+**** Software architecture is the stuff that’s hard to change later
+
+** Giving Timeless Advice About Software Architecture
+*** Changed capabilities
+**** Open source and Linux became viable alternatives
+**** Programmatically spin up their environments as part of an automated build
+**** Kubernetes
+
+** The Importance of Data in Architecture
+*** Data is the most important asset in a company
+*** Every part of the enterprise is now data driven
+*** Ensuring the right data is available and usable by all parts of the enterprise
+*** Data has moved to an architectural concern, along with transactionality
+**** DDD and bounded context
+*** Operational vs analytical
+
+** Architectural Decision Records
+*** Documenting a decision is important for an architect
+*** Automating many common governance concerns by using architecture fitness functions
+
+left side
+
+** Architecture Fitness Functions
+*** Automation and feedback have become central tenets for effective software development
+*** Important details can easily fall through superficial reviews
+*** Using Fitness Functions
+**** Fitness Functions - Any mechanism that performs an objective integrity assessment of some architecture characteristic or combination of architecture characteristics
+**** Any mechanism
+***** Dedicated testing libraries
+***** Monitoring for performance or scalability
+***** Chaos engineering frameworks test reliability and resiliency
+**** Objective integrity assessment
+***** Provide an object value that can be measured
+***** Composite architecture characteristics
+****** Agility isn't measurable
+****** Measure deployability, testability, cycle time for agility
+***** Lack of ability to measure an architecture characteristic indicates too vague a definition
+**** Some architecture characteristic or combination of architecture characteristics
+***** Atomic
+****** Handle a single architecture characteristic in isolation
+***** Holistic
+****** Validate a combination of architecture characteristics
+****** Improve security - affect prerformance
+****** Ensure that the combined effect won’t negatively affect the architecture
+**** When use fitness functions
+***** “Is any domain knowledge required to execute this test?”
+****** “yes” - a unit/function/user acceptance test is appropriate
+****** “no” - a fitness function is needed
+***** Examples
+****** JDepend
+******* Cyclic dependencies between components
+****** SonarQube
+****** ArchUnit
+****** Security
+******* Preventing developers from storing passwords in databases and similar regular governance chores
+******* Checks for a certain framework and version number
+**** Build executable checklist of important but not urgent principles on software projects
+***** Avoid overusing fitness functions
+***** The Checklist Manifesto by Atul Gawande (Picador)
+
+** Architecture Versus Design: Keeping Definitions Simple
+*** Keeping architecture and design as separate but related activities
+*** Why is more important than how
+
+** Introducing the Sysops Squad Saga
+*** Retail stores throughout the country
+**** When problems occur customer-facing technology experts (the Sysops Squad) come to the customer’s residence (or work office) to fix problems with the electronic device.
+*** Main users
+**** Administrator
+**** Customer
+**** Sysops Squad expert
+**** Manager
+*** Workflows
+**** Nonticketing
+**** Ticketing
+*** Bad Scenario
+**** Large monolithic application
+**** Lost tickets
+**** Wrong consultant shows up to fix
+**** System is not always available
+
+@endmindmap
