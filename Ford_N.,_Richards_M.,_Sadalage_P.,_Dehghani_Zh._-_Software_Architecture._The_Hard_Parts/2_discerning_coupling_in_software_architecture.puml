@@ -1,0 +1,86 @@
+@startmindmap
+<style>
+node {
+    MaximumWidth 250
+    FontSize 20
+    BackgroundColor white
+    LineColor black
+}
+
+rootNode {
+    FontSize 30
+    BackgroundColor lightgreen
+}
+
+:depth(1) {
+    FontSize 25
+    BackgroundColor lightblue
+}
+
+arrow {
+    LineColor black
+}
+</style>
+
+* Discerning Coupling in Software Architecture
+
+** Intro
+*** Coupling
+**** Static
+***** The way architectural parts (classes, components, services, and so on) are wired together: dependencies, coupling degree, connection points, and so on
+**** Dynamic
+***** How architecture parts call one another
+*** “loosely coupled” systems
+**** How can architects design systems where nothing connects to anything else?
+*** Transactionality is a first-class architectural concern
+*** “Software architecture” is the stuff you can’t Google answers for
+*** Ability to do trade-off analysis
+*** Coupling
+**** Two parts of a software system are coupled if a change in one might cause a change in the other.
+*** How do architects determine the size and communication styles for microservices?
+**** Too-small services create transactional and orchestration issues
+**** too-large services create scale and distribution issues
+
+** Architecture (Quantum | Quanta)
+*** Definitions
+**** Architecture quantum
+***** Independently deployable artifact with high functional cohesion, high static coupling, and synchronous dynamic coupling
+**** Static coupling
+***** Represents how static dependencies resolve within the architecture via contracts
+***** Operating system, frameworks, and/or libraries delivered via transitive dependency management
+**** Dynamic coupling
+***** Represents how quanta communicate at runtime, either synchronously or asynchronously
+
+left side
+
+** Independently deployable
+*** Quantum represents a separate deployable unit within a particular architecture
+*** Monolithic architecture—one that is deployed as a single unit
+*** Useful purposes
+**** Boundary represented by an architecture quantum serves as a useful common language among architects, developers, and operations
+**** Architecture quantum represents one of the forces (static coupling) architects must consider when striving for proper granularity of services within a distributed architecture
+**** Independent deployability forces the architecture quantum to include common coupling points such as databases
+***** System that uses a shared database fails the architecture quantum criteria
+
+** High Functional Cohesion
+*** Overlaps with the goals of the bounded context in domain-driven design: behavior and data that implements a particular domain workflow.
+*** It almost certainly isn’t highly functionally cohesive, but rather includes the functionality of the entire system
+*** How independent and coupled one service is to another service
+
+** High Static Coupling
+*** Necessary to bootstrap this service
+*** System that relies on a single database cannot have more than a single quantum
+*** If the system is tightly coupled to a user interface, the architecture forms a single architecture quantum
+**** micro frontend
+*** The broker must be present
+
+** Dynamic Quantum Coupling
+*** Communication
+**** Synchronous or asynchronous
+**** Decisions around communication affect synchronization, error handling, transactionality, scalability, and performance
+*** Consistency
+**** Atomicity or eventual consistency
+**** General advice to try to avoid cross-service transactions
+*** Coordination
+**** orchestrator or choreography
+@endmindmap
