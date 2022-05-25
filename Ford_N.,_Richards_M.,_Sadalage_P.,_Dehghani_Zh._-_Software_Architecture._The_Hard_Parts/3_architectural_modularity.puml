@@ -1,0 +1,91 @@
+@startmindmap
+<style>
+node {
+    MaximumWidth 250
+    FontSize 20
+    BackgroundColor white
+    LineColor black
+}
+
+rootNode {
+    FontSize 30
+    BackgroundColor lightgreen
+}
+
+:depth(1) {
+    FontSize 25
+    BackgroundColor lightblue
+}
+
+arrow {
+    LineColor black
+}
+</style>
+
+* Architectural Modularity
+** Intro
+*** Breaking large monolithic applications into separate and smaller parts to provide more capacity for further scalability and growth
+
+** Modularity Drivers
+*** Architects shouldn’t break a system into smaller parts unless clear business drivers exist
+*** Business drivers
+**** Speed-to-market (time-to-market)
+***** Achieved through architectural agility — the ability to respond quickly to change
+**** Competitive advantage in the marketplace
+***** Competitive advantage is achieved through speed-to-market combined with
+****** scalability
+****** overall application availability and fault tolerance
+*** Key architectural characteristics
+**** availability (fault tolerance)
+**** scalability
+**** deployability
+**** testability
+**** maintainability
+*** Architectural modularity does not always have to translate to a distributed architecture
+**** modular monolith or even a microkernel architecture
+
+** Maintainability
+*** Maintainability is about
+**** the ease of adding, changing, or removing features
+**** applying internal changes such as maintenance patches, framework upgrades, third-party upgrades, and so on
+*** Maintainability of an application based on components
+**** Component coupling
+**** Component cohesion
+**** Cyclomatic complexity
+**** Component size
+**** Technical versus domain partitioning
+*** Examples
+**** Wish list items in a monolithic layered architecture could possibly require the coordination of at least three teams
+**** domain level - making it easier to isolate the specific deployment unit requiring the change
+
+left side
+
+** Testability
+*** Architectural modularity significantly reduces the overall testing scope for changes made to a service
+*** Testability is about the ease of testing, but also the completeness of testing
+*** Testability declines rapidly because the testing scope for a change to Service A now includes Service B and Service C, therefore impacting both the ease of testing and the completeness of testing.
+
+** Deployability
+*** Ease of deployment — it is also about the frequency of deployment and the overall risk of deployment
+*** Problem ceremonies
+**** code freezes
+**** mock deployments
+*** Deployability is also negatively impacted as services become smaller and communicate more with each other to complete a business transaction
+
+** Scalability
+*** Scalability - ability of a system to remain responsive as user load gradually increases over time
+**** more a function of modularity (the breaking apart of applications into separate deployment units)
+*** Elasticity - ability of a system to remain responsive during significantly high instantaneous and erratic spikes in user load
+**** relies on services having a very small mean time to startup
+**** more a function of granularity (the size of a deployment unit)
+*** Important to keep synchronous communication among services to a minimum when requiring high levels of scalability and elasticity
+
+** Availability/Fault Tolerance
+*** Fault tolerance as the ability for some parts of the system to remain responsive and available as other parts of the system fail
+*** Examples
+**** Application load balanced with monolith
+***** If the fault is due to a programming bug, that bug will exist in both instances, therefore potentially bringing down both instances.
+**** Multiple deployments
+***** Catastrophic failure is isolated to only one deployment unit
+***** If other services are synchronously dependent on a service that is failing, fault tolerance is not achieved
+@endmindmap
