@@ -1,0 +1,87 @@
+@startmindmap
+<style>
+node {
+    MaximumWidth 250
+    FontSize 20
+    BackgroundColor white
+    LineColor black
+}
+
+rootNode {
+    FontSize 30
+    BackgroundColor lightgreen
+}
+
+:depth(1) {
+    FontSize 25
+    BackgroundColor lightblue
+}
+
+arrow {
+    LineColor black
+}
+</style>
+
+* Architectural Decomposition
+
+** Intro
+*** Elephant Migration AntiPattern
+*** Architectural Modularity describes why
+*** Architectural Decomposition describes how
+*** Component-based decomposition
+**** Refining and extracting components (the logical building blocks of an application)
+**** Incremental and controlled fashion
+*** Tactical forking
+**** Making replicas of an application and chipping away at the unwanted parts to form services
+*** The decision tree for selecting a decomposition approach
+
+** Is the Codebase Decompasable?
+*** Afferent and Efferent Coupling
+**** Afferent - incoming
+**** Efferent - outgoing
+*** Abstractness and Instability
+**** Measure the balance of the internal characteristics of a codebase
+**** Abstractness
+***** ratio of abstract artifacts (abstract classes, interfaces, and so on) to concrete artifacts (implementation classes)
+***** measure of abstract versus implementation
+**** Instability
+***** ratio of efferent coupling to the sum of both efferent and afferent coupling
+***** determines the volatility of a codebase
+***** trade-off for high stability is lack of reuse
+*** Distance from the Main Sequence
+**** Components that fall near this idealized line exhibit a healthy mixture of two competing concerns: Abstractness and Instability
+**** Zones
+***** zone of uselessness
+****** code that is too abstract becomes difficult to use
+***** zone of pain
+****** code with too much implementation and not enough abstraction becomes brittle and hard to maintain
+**** Codebase where many of the components fall into either the zones of uselessness or pain, perhaps it is not a good use of time to try to shore up the internal structure to the point where it can be repaired.
+
+left side
+
+** Component-Based Decomposition
+*** Component
+**** As a building block of the application that has a well-defined role and responsibility in the system and a well-defined set of operations
+**** Namespaces or directory structures
+*** When breaking monolithic applications into distributed architectures, build services from components, not individual classes
+*** Component-based decomposition patterns essentially enable the migration of a monolithic architecture to a service-based architecture
+**** Domain service
+***** Business logic for a particular domain
+**** Why service-based first?
+***** Determine which domains require further levels of granularity into microservices
+***** Prior to tackling database decomposition
+***** Does not require any operational automation or containerization
+***** The move to service-based architecture is a technical one
+
+** Tactical Forking
+*** Deleting the parts no longer needed
+*** Dependencies remain, avoiding the constant unraveling effect of extraction
+**** Trade-offs
+***** Benefits
+****** Start working right away with virtually no up-front analysis
+****** Developers find it easier to delete code rather than extract it
+***** Shortcomings
+****** Large amount of mostly latent code left over from the monolith
+****** Code inside the newly derived services won't be better than the chaotic code from the monolith
+****** Difficultly identifying common code and keeping it consistent.
+@endmindmap
