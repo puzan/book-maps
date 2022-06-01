@@ -1,0 +1,115 @@
+@startmindmap
+<style>
+node {
+    MaximumWidth 250
+    FontSize 20
+    BackgroundColor white
+    LineColor black
+}
+
+rootNode {
+    FontSize 30
+    BackgroundColor lightgreen
+}
+
+:depth(1) {
+    FontSize 25
+    BackgroundColor lightblue
+}
+
+arrow {
+    LineColor black
+}
+</style>
+
+* Component-Based Decomposition Patterns
+** Intro
+*** User Story
+*** Architecture Story
+*** Tech Debt
+
+** Identify and Size Components Pattern
+*** Pattern Description
+**** Identify components that are either too big (doing too much) or too small (not doing enough)
+**** Calculate total number of statements within a given component
+***** Least it's a good indicator of how much the component is doing and how complex the component is
+**** Size of components in an application should fall between one to two standard deviations from the average (or mean) component size
+**** Percentage of code represented by each component should be somewhat evenly distributed between application components and not vary significantly
+**** Component inventory
+***** Name
+***** Namespace
+***** Percent
+***** Statements
+****** Determining the overall complexity of the component
+***** Files
+*** Fitness Functions
+**** Maintain component inventory
+***** It's used to alert an architect of components that might have been added or removed by the development team
+**** No component shall exceed <some percent> of the overall codebase
+***** Identifies components that exceed a given threshold in terms of the percentage of overall source code represented by that component
+**** No component shall exceed <some number of standard deviations> from the mean component size
+***** Identifies components that exceed a given threshold in terms of the number of standard deviations from the mean of all component sizes
+
+** Gather Common Domain Components Pattern
+*** Pattern Description
+**** Identify and collect common domain logic and centralize it into a single component
+**** Shared domain functionality is distinguished from shared infrastructure functionality
+**** Consolidating common domain functionality
+**** One hint that common domain processing exists in the application is the use of shared classes across components or a common inheritance structure used by multiple components
+**** The name of a logical component or its corresponding namespace
+**** Not all shared service
+***** common code could be gathered into a shared library that is bound to the code during compile time
+*** Fitness Functions
+**** Find common names in leaf nodes of component namespace
+***** Locate common names within the namespace of a component
+**** Find common code across components
+
+left side
+
+** Flatten Components Pattern
+*** Pattern Description
+**** Ensure that components are not built on top of one another, but rather flattened and represented as leaf nodes in a directory structure or namespace
+**** No longer considered a component and therefore should not contain any class files
+**** Definitions
+***** Component
+****** Leaf node namespace
+***** Root namespace
+****** A namespace node that has been extended by another namespace node
+***** Orphaned classes
+****** Classes contained within a root namespace, and hence have no definable component associated with them
+**** Move orphaned classes to create well-defined components that exist only as leaf nodes of a directory or namespace, creating well-defined subdomains (root namespaces) in the process
+***** Remove orphaned classes
+*** Fitness Functions
+**** No source code should reside in a root namespace
+
+** Determine Component Dependencies Pattern
+*** Pattern Description
+**** Analyze the incoming and outgoing dependencies (coupling) between components to determine what the resulting service dependency graph might look like after breaking up the monolithic application
+**** Sizes
+***** golf ball sizing
+***** basketball sizing
+***** airliner sizing
+**** Shared library vs shared service
+*** Fitness Functions
+**** No component shall have more than <some number> of total dependencies
+**** <some component> should not have a dependency on <another component>
+***** Restrict certain components from having a dependency on other ones
+***** One fitness function for each dependency restriction
+
+** Create Component Domains Pattern
+*** Pattern Description
+**** Logically group components together so that more coarse-grained domain services can be created when breaking up an application
+**** Creating component domains is an effective way of determining what will eventually become domain services in a service-based architecture
+**** Naming convention
+***** Component domains are identified through the namespace nodes
+*** Fitness Functions
+**** All namespaces under <root namespace node> should be restricted to <list of domains>
+
+** Create Domain Services Pattern
+*** Pattern Description
+**** Takes those well-defined component domains and extracts those component groups into separately deployed services, known as a domain services
+**** Don’t apply this pattern until all of the component domains have been identified and refactored
+**** Better to align and refactor all of the components into component domains first, then start migrating those component domains to domain services
+*** Fitness Functions
+**** All components in <some domain service> should start with the same namespace
+@endmindmap
