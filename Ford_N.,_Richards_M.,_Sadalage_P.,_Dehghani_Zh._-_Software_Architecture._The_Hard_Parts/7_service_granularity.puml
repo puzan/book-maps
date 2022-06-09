@@ -1,0 +1,97 @@
+@startmindmap
+<style>
+node {
+    MaximumWidth 250
+    FontSize 20
+    BackgroundColor white
+    LineColor black
+}
+
+rootNode {
+    FontSize 30
+    BackgroundColor lightgreen
+}
+
+:depth(1) {
+    FontSize 25
+    BackgroundColor lightblue
+}
+
+arrow {
+    LineColor black
+}
+</style>
+
+
+* Service Granularity
+
+** Intro
+*** Modularity
+**** Constructed with standardized units or dimensions for flexibility and variety in use.
+**** Breaking up systems into separate parts
+*** Granularity
+**** Consisting of or appearing to consist of one of numerous particles forming a larger unit
+**** Deals with the size of those separate parts
+*** Metrics
+**** Number of statements in a service
+**** Number of public interfaces or operations exposed by a service
+
+** Granularity Disintegrators
+*** Service Scope and Function
+**** Cohesion
+**** Overall size of a component
+**** This granularity disintegrator is related to the single-responsibility principle
+
+*** Code Volatility
+**** Measuring the frequency of code changes in a service
+
+*** Scalability and Throughput
+**** Scale independently to meet their varying demands of throughput
+
+*** Fault Tolerance
+**** Continue to operate, even though a fatal crash occurs
+**** What would be an appropriate self-descriptive name of that combined service?
+***** If a service is too hard to name because it’s doing multiple things, then consider breaking apart the service
+
+*** Security
+**** By breaking this service into two separate services, access to the functionality used to maintain credit card information can be made more secure because the set of credit card operations is going into only a single-purpose service
+
+*** Extensibility
+**** Apply this driver only if it is known ahead of time that additional consolidated contextual functionality is planned, desired, or part of the normal domain
+
+left side
+
+** Granularity Integrators
+*** Database Transactions
+**** having a single-unit-of-work ACID transaction is required from a business perspective, these services should be consolidated into a single service
+
+*** Workflow and Choreography
+**** Service communication can increase to a point where negative impacts start to occur
+**** When those services need to talk to one another, nothing is really gained from a fault-tolerance perspective
+**** When breaking apart services, always check to see if the functionalities are tightly coupled and dependent on one another.
+**** If it is, then overall fault tolerance from a business request standpoint won’t be achieved, and it might be best to consider keeping the services together.
+**** Overall performance and responsiveness is another driver for granularity integration
+**** take into consideration the number of requests that require multiple services to communicate with one another, also taking into account the criticality of those requests requiring interservice communication
+**** If a critical request that requires extremely fast response time is part of that 30%, then it might be wise to put the services back together, even though 70% of the requests are purely atomic.
+**** Too much workflow impacts reliability and data integrity
+
+*** Shared Code
+**** Service functionality be out of sync based on the use of different versions of a library
+**** Not all uses of shared code drive granularity integration
+***** Infrastructure-related cross-cutting functionality
+**** Shared code as a granularity integrator
+***** Specific shared domain functionality
+***** Frequent shared code changes
+***** Defects that cannot be versioned
+****** Certain business functionality must be applied to all services at the same time
+******* defect or a change in business rules
+
+*** Data Relationships
+**** Relationship between the data that a single consolidated service uses as opposed to the data that separate services would use
+
+** Finding the Right Balance
+*** Granularity is hard
+**** Understanding both granularity disintegrators (when to break apart a service) and granularity integrators (when to put them back together), and analyze the corresponding trade-offs between the two
+
+
+@endmindmap
