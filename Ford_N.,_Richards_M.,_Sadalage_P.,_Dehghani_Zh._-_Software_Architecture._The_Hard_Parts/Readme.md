@@ -5,3 +5,4 @@
 ![3](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/puzan/book-maps/raw/main/Ford_N.,_Richards_M.,_Sadalage_P.,_Dehghani_Zh._-_Software_Architecture._The_Hard_Parts/3_architectural_modularity.puml)
 ![4](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/puzan/book-maps/raw/main/Ford_N.,_Richards_M.,_Sadalage_P.,_Dehghani_Zh._-_Software_Architecture._The_Hard_Parts/4_architectural_decomposition.puml)
 ![5](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/puzan/book-maps/raw/main/Ford_N.,_Richards_M.,_Sadalage_P.,_Dehghani_Zh._-_Software_Architecture._The_Hard_Parts/5_component-based_decomposition_patterns.puml)
+![6](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/puzan/book-maps/raw/main/Ford_N.,_Richards_M.,_Sadalage_P.,_Dehghani_Zh._-_Software_Architecture._The_Hard_Parts/6_pulling_apart_operational_data.puml)

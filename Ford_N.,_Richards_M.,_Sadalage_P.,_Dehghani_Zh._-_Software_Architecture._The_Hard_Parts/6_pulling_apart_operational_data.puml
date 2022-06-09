@@ -1,0 +1,226 @@
+@startmindmap
+<style>
+node {
+    MaximumWidth 250
+    FontSize 20
+    BackgroundColor white
+    LineColor black
+}
+
+rootNode {
+    FontSize 30
+    BackgroundColor lightgreen
+}
+
+:depth(1) {
+    FontSize 25
+    BackgroundColor lightblue
+}
+
+arrow {
+    LineColor black
+}
+</style>
+
+* Pulling Apart Operational Data
+
+** Intro
+*** Data is generally the most important asset in the company
+
+** Data Decomposition Drivers
+*** Data disintegrators - drivers that justify breaking apart data
+
+**** Change control
+***** Breaking changes
+****** Dropping tables or columns
+****** Changing table or column names
+****** Changing the column type in a table
+***** Safe changes
+****** adding tables or columns
+***** Don't forget about services that access the table just changed
+***** Find out which services use the table being changed
+***** Coordinate, test, and deploy all of these services together as a single unit
+***** JSON contract
+
+**** Connection management
+***** Establishing a connection to a database is an expensive operation
+***** Connection pool
+****** Increase performance
+****** Limit the number of concurrent connections
+***** Reaching (or exceeding) the maximum number of available database connections is yet another driver to consider when deciding whether to break apart a database
+***** Connection quota - distribution of available database connections across services
+****** Same connection quota to every service
+******* Typically used when first deploying services
+****** Different connection quota to each service based on its needs
+
+**** Scalability
+***** Ability for services to handle increases in request volume while maintaining a consistent response time
+***** The database must also scale when services scale
+***** Database-per-service requires fewer connections to each database, hence providing better database scalability and performance as the services scale.
+***** Load placed on the database
+****** By breaking apart a database, less load is placed on each databas
+
+**** Fault tolerance
+***** Database becomes a single point of failure
+
+**** Architectural quantum
+***** Independently deployable artifact with high functional cohesion, high static coupling, and synchronous dynamic coupling
+***** Independent deploy
+
+**** Database type optimization
+***** Find optimal database type for certain type of data
+
+*** Data integrators - drivers that justify keeping data together
+
+**** Data relationships
+***** Artifacts like foreign keys, triggers, views, and stored procedures tie tables together, making it difficult to pull data apart
+***** Data consistency and data integrity
+
+**** Database transactions
+***** Remote calls between services -> transactional unit of work no longer exists
+***** Data consistency and integrity issues
+
+** Decomposing Monolithic Data
+*** Five-step process for decomposing a monolithic database
+**** Data domain
+***** Collection of coupled database artifacts—tables, views, foreign keys, and triggers—that are all related to a particular domain and frequently used together within a limited functional scope
+**** Cross-domain dependencies must be removed
+***** Removing foreign-key constraints, views, triggers, functions, and stored procedures between data domains
+***** Refactoring Databases: Evolutionary Database Design, by Scott Ambler and Pramod Sadalage
+**** Service cannot talk to multiple data domains
+
+*** Step 1: Analyze Database and Create Data Domains
+**** Identify specific domain groupings within the database
+
+*** Step 2: Assign Tables to Data Domains
+**** Assigning tables that belong to a specific data domain into their own schema
+**** Synonyms for tables that do not belong in their schema
+**** While synonyms do not really get rid of cross-schema queries, they do allow for easier dependency checking and code analysis, making it easier to split these later on
+
+*** Step 3: Separate Database Connections to Data Domains
+**** Database connection logic within each service is refactored to ensure services connect to a specific schema and have read and write access to the tables belonging only to their data domain
+**** All cross-schema access must be resolved at the service level
+***** Use the service that owns the data domain
+**** All synonyms are removed
+**** Data sovereignty per service
+***** Benefits
+****** Change the database schema without worrying about affecting changes in other domains.
+****** Each service can use the database technology and database type best suitable for their use case
+***** Shortcomings
+****** Performance issues
+****** Referential integrity cannot be maintained in the database
+****** All database code must be moved to the service layer
+
+*** Step 4: Move Schemas to Separate Database Servers
+**** Move the data domains to separate physical databases
+**** Options
+***** Backup and restore
+****** Downtime for the migration
+***** Replicate
+****** Require more work to set up the replication and manage increased coordination
+
+*** Step 5: Switch Over to Independent Database Servers
+
+left side
+
+** Selecting a Database Type
+
+*** Characteristics
+**** Ease-of-learning curve
+**** Ease of data modeling
+**** Scalability/throughput
+**** Availability/partition tolerance
+**** Consistency
+**** Programming language support, product maturity, SQL support, and community
+***** Can an organization easily hire people who know how to work with the database?
+**** Read/write priority
+
+*** Relational Databases
+**** Ubiquitous SQL
+**** Commonly taught in schools, and mature documentation and tutorials exist
+**** Relational databases allow for flexible data modeling
+**** Vertically scaled using large machines
+**** Favor consistency over availability and partition tolerance
+**** ACID
+**** Easy to adopt, develop, and integrate within an architecture. Lack support for reactive stream APIs
+**** Handle different types of workloads
+
+*** Key-Value Databases
+**** Takes practice and unlearning familiar practices
+***** Cannot simply query “Get me all the keys.”
+**** Use memory structures like arrays, maps, or any other type of data, including big blob
+***** Queried only by key or ID
+**** Indexed by key or ID, key lookups are very fast
+**** Even the same database can be configured to act in different ways either for an installation or for each read
+***** quorum - all, one, quorum, and default
+**** Quorum during read operations
+***** Tunable consistency
+**** Good programming language support
+**** Read priority
+***** Used for session storage, and can be used to cache user properties and preferences as well
+
+*** Document Databases
+**** Schemaless
+***** The application needs to handle multiple versions of the schema returned by a database
+**** Documents are human-readable, self-describing, hierarchical tree structures
+***** Understand the structure of the data and can index multiple attributes of the documents, allowing for better query flexibility
+**** Document databases are forgiving when it comes to aggregate design, as the parts of the aggregate are queryable and can be indexed.
+**** Easy to scale
+***** Partitioning or sharding
+***** Forces the selection of a sharding key
+**** Can be configured for higher availability
+**** Started supporting ACID transactions within a collection
+***** Provide the ability to tune the read and write operations using the quorum mechanism
+**** Active user community, numerous online learning tutorials etc
+**** Aggregate oriented and have secondary indexes to query, so these databases are favoring read priority
+
+*** Column Family Databases
+**** Wide column databases or big table databases
+***** rows with varying numbers of columns, where each column is a name-value pair.
+**** Understanding how to use these takes practice and time
+**** Data needs to be arranged in groups of name-value pairs that have a single row identifier, and designing this row key takes multiple iterations
+**** Highly scalable and suit use cases where high write or read throughput is needed
+***** Scale horizontally for read and write operations
+**** Naturally operate in clusters
+***** Tune writes and reads based on quorum needs
+**** Tunable consistency
+***** It’s a trade-off—higher consistency levels reduce availability and partition tolerance
+**** Active communities, SQL-like interface
+**** SSTables, commit logs, and memtables
+***** handle sparse data much better than relational databases
+***** high write-volume scenarios
+
+*** Graph Databases
+**** Nodes to store entities and their properties
+**** Nodes are connected with edges, also known as relationships
+**** The edges in graph databases have directional significance
+**** Understanding how to use the nodes, relations, relation type, and properties takes time
+**** Data modeling is hard
+**** Replecate nodes improve read scaling
+***** Throughput can be tuned for read loads
+***** Difficult to split or shard graphs
+**** Some of the graph databases - high partition tolerance and availability are distributed
+**** Many support ACID
+**** Support in the community
+***** Many algorithms implemented in the database
+***** Cremlin, Cypher
+**** Optimized for relationship traversal
+***** Read-heavy scenatios
+
+*** NewSQL Databases
+**** Scalability of NoSQL databases while supporting the features of relational databases like ACID
+**** Automated data partitioning or sharding, allowing for horizontal scaling and improved availability, while at the same time allowing an easy transition for developers to use the known paradigm of SQL and ACID
+**** Learning and modeling like relational databases
+**** Designed to support horizontal scaling
+***** Allowing for multiple active nodes
+**** Multiple active nodes design
+**** Strongly consistent ACID transactions
+**** Replace relational databases without any compatibility problems
+**** Benefits of indexing and distributing geographically either to improve read performance or write performance
+
+*** Cloud Native Databases
+**** Reduce operational burden, provide cost transparency, and are an easy way to experiment since no up-front investments are needed
+
+*** Time-Series Databases
+**** Not general-purpose databases
+@endmindmap
