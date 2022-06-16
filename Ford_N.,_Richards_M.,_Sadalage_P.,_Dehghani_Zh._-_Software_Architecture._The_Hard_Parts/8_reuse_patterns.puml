@@ -1,0 +1,129 @@
+@startmindmap
+<style>
+node {
+    MaximumWidth 250
+    FontSize 20
+    BackgroundColor white
+    LineColor black
+}
+
+rootNode {
+    FontSize 30
+    BackgroundColor lightgreen
+}
+
+:depth(1) {
+    FontSize 25
+    BackgroundColor lightblue
+}
+
+arrow {
+    LineColor black
+}
+</style>
+
+* Reuse Patterns
+
+** Intro
+*** “reuse is abuse!” and “share nothing!”
+*** DRY (Don’t repeat yourself)
+*** WET (Write every time or Write everything twice)
+
+** Code Replication
+*** Description
+**** Shared code is copied into each service
+**** Share nothing architecture
+**** If this were a unique one-off class, it might be worth copying it into each service code repository rather than creating a shared library for it.
+**** Investigating the other code-sharing techniques before opting for the code replication technique.
+**** Difficult to apply changes
+*** When to Use
+**** Code that is unlikely to ever change
+**** Defect or change is very difficult to propagate
+
+** Shared Library
+*** Description
+**** External artifact containing source code that is used by multiple services which is typically bound to the service at compile time
+**** Dependency Management and Change Control
+***** The two opposing forces that form trade-offs
+****** dependency management
+****** change control
+***** If a change occurs to any of the class files
+****** Every service must eventually adopt the change
+****** Unnecessary retesting and redeployment
+****** Increasing the overall testing scope
+***** Smaller functionality-based shared libraries is better for change control and overall maintainability
+****** But creates a mess in terms of dependency management
+***** Avoid large, coarse-grained shared libraries
+**** Versioning Strategies
+***** Always use versioning
+***** Complexities of shared library versioning is communicating a version change
+****** Coordinated and communicated to the right people at the right time
+***** Deprecation of older versions of a shared library
+***** Avoid the use of the LATEST version when specifying which version of a library a service requires
+****** May be incompatible with the service
+*** When to Use
+**** Homogeneous environments
+**** Shared code change is low to moderate
+**** Operational characteristics are not impacted (performance, scalability, and fault tolerance)
+***** compile time
+
+left side
+
+** Shared Service
+*** Description
+**** Avoids reuse by placing shared functionality in a separately deployed service
+**** Shared code must be in the form of composition, not inheritance
+**** Change Risk
+***** Runtime in nature
+****** Change to a shared service is a runtime change
+****** “Simple” change in a shared service can effectively bring down an entire system
+***** API endpoint versioning
+****** When should the team create a new API endpoint?
+***** Difficult to coordinate versions across multiple protocols
+****** REST, messaging and gRPC
+**** Performance
+***** Performance is impacted because of network latency
+****** Use gRPC or messaging to mitigate some of the performance issues
+**** Scalability
+***** Shared service must scale as services using the shared service scale
+**** Fault Tolerance
+***** If the shared service becomes unavailable, services requiring the shared functionality are rendered nonoperational until the shared service is available
+*** When to Use
+**** Good to use in highly polyglot environments
+**** Shared functionality tends to change often
+
+** Sidecars and Service Mesh
+*** Description
+**** Goals of microservices architectures is a high degree of decoupling
+**** Duplication is preferable to coupling
+**** Capabilities that benefit from high coupling
+***** monitoring
+***** logging
+***** authentication and authorization
+***** circuit breakers
+**** Sidecar pattern
+***** Decouples the domain logic from the technical (infrastructure) logic
+***** Orthogonal reuse
+****** Two distinct purposes that must still intersect to form a complete solution
+**** Reasonable restraint over too many polyglot environments
+**** Teams often use the consistency of the service mesh as a driver to support infrastructure and other cross-cutting concerns across multiple heterogeneous platforms
+*** When to Use
+**** Operational coupling
+**** It offers an architectural equivalent to the Decorator Design Pattern
+
+** Sysops Squad Saga
+*** Who is supposed to be writing log messages?
+*** The intent of the service mesh and sidecar is to consolidate operational coupling, not domain coupling.
+
+** Code Reuse: When Does It Add Value?
+*** Reuse represents a laudable goal that teams should strive for
+**** Unifying on a centralized Customer service
+**** Entity must be complex enough to handle any domain and scenario, making it difficult to use for simple things
+**** Brittleness within the architecture
+*** Reuse has two important aspects (Reuse is derived via abstraction but operationalized by slow rate of change)
+**** Abstraction
+**** Rate of change
+*** Reuse via Platforms
+**** Platform is the new target of reuse within organizations
+**** Builds a platform with a well-defined API to hide the implementation details
+@endmindmap
