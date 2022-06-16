@@ -1,0 +1,129 @@
+@startmindmap
+<style>
+node {
+    MaximumWidth 250
+    FontSize 20
+    BackgroundColor white
+    LineColor black
+}
+
+rootNode {
+    FontSize 30
+    BackgroundColor lightgreen
+}
+
+:depth(1) {
+    FontSize 25
+    BackgroundColor lightblue
+}
+
+arrow {
+    LineColor black
+}
+</style>
+
+* Data Ownership and Distributed Transactions
+
+** Assigning Data Ownership
+*** Services that perform write operations to a table own that table
+*** Messy
+**** Joint ownership (multiple services do writes to the same table)
+**** Common ownership (most or all services write to the table)
+
+** Single Ownership Scenario
+** Common Ownership Scenario
+*** Most (or all) of the services need to write to the same table
+**** Putting the Audit table in a shared database or shared schema - reintroduces all of the data-sharing issues
+*** Dedicated single service as the primary (and only) owner of that data
+
+** Joint Ownership Scenario
+*** Multiple services perform write actions on the same table
+*** Ownership scenarios
+
+**** Table Split Technique
+***** Synchronizing data between split tables is not a trivial matter
+****** Availability verses consistency
+
+**** Data Domain Technique
+***** Tables shared by the same services are put into the same schema or database
+***** Why separate services are needed since the data is common to each of the services?
+***** Require changes to the shared table structures to be coordinated among multiple services
+***** Controlling which services have write responsibility to what data
+
+**** Delegate Technique
+***** One service is assigned single ownership of the table and becomes the delegate
+***** Options
+****** Primary domain priority
+******* Assigns table ownership to the service that most closely represents the primary domain of the data
+******* Recommended
+****** Operational characteristics priority
+******* Assigns table ownership to the service needing higher operational architecture characteristics, such as performance, scalability, availability, and throughput.
+***** Disadvantages
+****** Service coupling
+****** Interservice communication
+****** Lack of an atomic transaction
+****** Low performance
+****** Low fault tolerance
+
+**** Service Consolidation Technique
+***** Resolves service dependency and addresses joint ownership by combining multiple table owners (services) into a single consolidated service
+
+left side
+
+** Distributed Transactions
+*** ACID
+**** Atomicity
+***** Commit or roll back all of its updates in a single unit of work
+**** Consistency
+***** Database would never be left in an inconsistent state or violate any of the integrity constraints specified in the database
+**** Isolation
+***** Degree to which individual transactions interact with each other
+**** Durability
+***** All data updates are permanent, regardless of further system failures.
+
+*** BASE
+**** Basic availability
+***** Services or systems in the distributed transaction are expected to be available to participate in the distributed transaction
+**** Soft state
+***** Distributed transaction is in progress and the state of the atomic business request is not yet complete
+**** Eventual consistency
+***** Given enough time, all parts of the distributed transaction will complete successfully and all of the data is in sync with one another
+
+** Eventual Consistency Patterns
+
+*** Background Synchronization Pattern
+**** Separate external service or process to periodically check data sources and keep them in sync with one another
+**** What data has changed?
+***** Event stream, a database trigger, or reading data from source tables
+**** Disadvantages
+***** Couples all of the data sources together
+****** Breaking every bounded context
+***** Shared data ownership
+***** Difficulties with change control, problems occur with regard to duplicated business logic as
+****** Where is that business logic located?
+******* Also the background batch process
+**** Situations where this pattern is useful are closed (self-contained) heterogeneous systems that don’t communicate with each other or share data
+
+*** Orchestrated Request-Based Pattern
+**** Make sure all of the data sources are synchronized during the course of the business request
+**** Orchestrator
+***** Responsible for managing all of the work needed to process the request
+***** Designate one of the primary services (assuming there is one) to manage the distributed transaction
+**** Tight coupling and synchronous dependencies between services
+**** Generally favors data consistency over responsiveness
+**** Operation synchronously for error handling and consistency reasons
+**** Complex error handling
+**** Compensating update
+**** Failures that occur during compensation
+**** Require human intervention to repair the data sources
+
+*** Event-Based Pattern
+**** Used in conjunction with an asynchronous publish-and-subscribe (pub/sub) messaging model to post events (such as customer unsubscribed) or command messages (such as unsubscribe cus tomer) to a topic or event stream
+**** Services are highly decoupled from one another
+**** Durable subscribers is needed
+***** Must always persist the message
+**** Error handling
+***** Dead letter queue
+
+
+@endmindmap

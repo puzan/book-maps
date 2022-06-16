@@ -8,3 +8,4 @@
 ![6](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/puzan/book-maps/raw/main/Ford_N.,_Richards_M.,_Sadalage_P.,_Dehghani_Zh._-_Software_Architecture._The_Hard_Parts/6_pulling_apart_operational_data.puml)
 ![7](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/puzan/book-maps/raw/main/Ford_N.,_Richards_M.,_Sadalage_P.,_Dehghani_Zh._-_Software_Architecture._The_Hard_Parts/7_service_granularity.puml)
 ![8](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/puzan/book-maps/raw/main/Ford_N.,_Richards_M.,_Sadalage_P.,_Dehghani_Zh._-_Software_Architecture._The_Hard_Parts/8_reuse_patterns.puml)
+![9](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/puzan/book-maps/raw/main/Ford_N.,_Richards_M.,_Sadalage_P.,_Dehghani_Zh._-_Software_Architecture._The_Hard_Parts/9_data_ownership_and_distributed_transactions.puml)
