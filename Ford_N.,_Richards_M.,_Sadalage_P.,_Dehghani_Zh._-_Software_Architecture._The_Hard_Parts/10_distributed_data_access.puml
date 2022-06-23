@@ -1,0 +1,83 @@
+@startmindmap
+<style>
+node {
+    MaximumWidth 250
+    FontSize 20
+    BackgroundColor white
+    LineColor black
+}
+
+rootNode {
+    FontSize 30
+    BackgroundColor lightgreen
+}
+
+:depth(1) {
+    FontSize 25
+    BackgroundColor lightblue
+}
+
+arrow {
+    LineColor black
+}
+</style>
+
+* Distributed Data Access
+
+** Interservice Communication Pattern
+*** Advantages
+**** Simplicity
+**** No data volume issues
+*** Disadvantages
+**** Network, data, and security latency (performance)
+**** Scalability and throughput issues
+**** No fault tolerance (availability issues)
+**** Requires contracts between services
+
+** Column Schema Replication Pattern
+*** Replicating the data and making it available to other bounded contexts
+*** Issues
+**** Data synchronization
+**** Data consistency
+*** Advantages
+**** Good data access performance
+**** No scalability and throughput issues
+**** No fault-tolerance issues
+**** No service dependencies
+*** Disadvantages
+**** Data consistency issues
+**** Data ownership issues
+**** Data synchronization is required
+
+** Replicated Caching Pattern
+*** Caching as a technique for increasing overall responsiveness
+*** Caching options
+**** single in-memory caching
+**** distributed caching
+**** replicated cache
+*** Advantages
+**** Good data access performance
+**** No scalability and throughput issues
+**** Good level of fault tolerance
+**** Data remains consistent
+**** Data ownership is preserved
+*** Disadvantages
+**** Cloud and containerized configuration can be hard
+**** Not good for high data volumes
+**** Not good for high update rates
+**** Initial service startup dependency
+
+** Data Domain Pattern
+*** Tables that are shared between services are put into a single schema that is then shared by both services
+*** Advantages
+**** Good data access performance
+**** No scalability and throughput issues
+**** No fault tolerance issues
+**** No service dependency
+**** Data remains consistent
+*** Disadvantages
+**** Broader bounded context to manage data changes
+**** Data ownership governance
+**** Data access security
+
+@endmindmap

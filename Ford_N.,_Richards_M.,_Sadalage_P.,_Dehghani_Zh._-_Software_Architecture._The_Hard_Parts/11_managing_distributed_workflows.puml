@@ -1,0 +1,92 @@
+@startmindmap
+<style>
+node {
+    MaximumWidth 250
+    FontSize 20
+    BackgroundColor white
+    LineColor black
+}
+
+rootNode {
+    FontSize 30
+    BackgroundColor lightgreen
+}
+
+:depth(1) {
+    FontSize 25
+    BackgroundColor lightblue
+}
+
+arrow {
+    LineColor black
+}
+</style>
+
+* Managing Distributed Workflows
+
+** Intro
+*** "You maniac"
+*** Always is a tricky term in software architecture
+*** Never use absolutes
+
+** Orchestration Communication Style
+*** Intro
+**** Not a global orchestrator such as an enterprise service bus (ESB).
+*** Advantage
+**** Centralized workflow
+**** Error handling
+**** Recoverability
+**** State management
+*** Disadvantage
+**** Responsiveness
+**** Fault tolerance
+**** Scalability
+**** Service coupling
+
+** Choreography Communication Style
+*** Coupling
+**** semantic coupling
+**** implementation coupling
+*** Workflow State Management
+**** Front Controller pattern
+***** Responsibility for state on the first called service in the chain of responsibility
+***** increases communication overhead
+***** Advantage
+****** Creates a pseudo-orchestrator within choreography
+****** Makes querying the state of an order trivial
+***** Disadvantage
+****** Adds additional workflow state to a domain service
+****** Increases communication overhead
+****** Detrimental to performance and scale as it increases integration communication chatter
+**** Stateless choreography
+***** Keep no transient workflow state at all, relying on querying the individual services to build a realtime snapshot
+***** Advantage
+      Offers high performance and scale
+      Extremely decoupled
+***** Disadvantage
+      Workflow state must be built on the fly
+      Complexity rises swiftly with complex workflows
+**** Stamp coupling
+***** Advantage
+****** Allows domain services to pass workflow state without additional queries to a state owner
+****** Eliminates need for a front controller
+***** Disadvantage
+****** Contracts must be larger to accommodate workflow state
+****** Doesn’t provide just-in-time status queries
+
+*** Advantage
+**** Responsiveness
+**** Scalability
+**** Fault tolerance
+**** Service decoupling
+*** Disadvantage
+**** Distributed workflow
+**** State management
+**** Error handling
+**** Recoverability
+
+** Trade-Offs Between Orchestration and Choreography
+*** State Owner and Coupling
+**** The more semantic complexity contained in a workflow, the more utilitarian an orchestrator is
+**** Orchestration is best suited for complex workflows that include boundary and error conditions
+@endmindmap
